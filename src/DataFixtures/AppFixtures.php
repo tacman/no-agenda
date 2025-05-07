@@ -58,6 +58,8 @@ class AppFixtures extends Fixture
                 ->setDescription($data['description'])
                 ->setUri($data['uri'])
                 ->setDisplayUri($data['displayUri'])
+                ->setAuthor($data['author'] ?? null)
+                ->setAuthorUri($data['authorUri'] ?? null)
                 ->setPriority($data['priority']);
 
             $manager->persist($site);
@@ -234,12 +236,14 @@ class AppFixtures extends Fixture
         ];
 
         yield [
-            'name' => 'NA Social',
-            'icon' => 'fab fa-mastodon',
-            'description' => 'The official No Agenda social network.',
-            'uri' => 'https://noagendasocial.com',
-            'displayUri' => 'noagendasocial.com',
-            'priority' => 3,
+            'name' => 'Tip of the Day',
+            'icon' => null,
+            'description' => 'A collection of all the Tips of the Day from John (and sometimes Adam).',
+            'uri' => 'https://tipoftheday.net/',
+            'displayUri' => 'tipoftheday.net',
+            'author' => 'Nykko Syme',
+            'authorUri' => 'https://noauthority.social/@nykkosyme',
+            'priority' => 5,
         ];
     }
 
