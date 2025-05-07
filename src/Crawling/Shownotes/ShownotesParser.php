@@ -58,40 +58,40 @@ class ShownotesParser
                 foreach ($this->parseOutlines($node) as $producerNode) {
                     $credits['Executive Producers'][] = $producerNode['text'];
                 }
-            } elseif (str_starts_with($text, 'Executive Producers:')) {
-                $credits['Executive Producers'][] = substr($text, 20);
+            } elseif (str_starts_with((string) $text, 'Executive Producers:')) {
+                $credits['Executive Producers'][] = substr((string) $text, 20);
             } elseif ($text === 'Executive Producer:') {
                 foreach ($this->parseOutlines($node) as $producerNode) {
                     $credits['Executive Producers'][] = $producerNode['text'];
                 }
-            } elseif (str_starts_with($text, 'Executive Producer:')) {
-                $credits['Executive Producers'][] = substr($text, 19);
+            } elseif (str_starts_with((string) $text, 'Executive Producer:')) {
+                $credits['Executive Producers'][] = substr((string) $text, 19);
             } elseif ($text === 'Associate Executive Producers:' || $text === 'Associate Executive Producers') {
                 foreach ($this->parseOutlines($node) as $producerNode) {
                     $credits['Associate Executive Producers'][] = $producerNode['text'];
                 }
-            } elseif (str_starts_with($text, 'Associate Executive Producers:')) {
-                $credits['Associate Executive Producers'][] = substr($text, 30);
+            } elseif (str_starts_with((string) $text, 'Associate Executive Producers:')) {
+                $credits['Associate Executive Producers'][] = substr((string) $text, 30);
             } elseif ($text === 'Associate Executive Producer:') {
                 foreach ($this->parseOutlines($node) as $producerNode) {
                     $credits['Associate Executive Producers'][] = $producerNode['text'];
                 }
-            } elseif (str_starts_with($text, 'Associate Executive Producer:')) {
-                $credits['Associate Executive Producers'][] = substr($text, 29);
+            } elseif (str_starts_with((string) $text, 'Associate Executive Producer:')) {
+                $credits['Associate Executive Producers'][] = substr((string) $text, 29);
             } else if ($text === 'Special Executive Producers:' || $text === 'Special Executive Producers') {
                 foreach ($this->parseOutlines($node) as $producerNode) {
                     $credits['Special Executive Producers'][] = $producerNode['text'];
                 }
-            } elseif (str_starts_with($text, 'Special Executive Producers:')) {
-                $credits['Special Executive Producers'][] = substr($text, 28);
+            } elseif (str_starts_with((string) $text, 'Special Executive Producers:')) {
+                $credits['Special Executive Producers'][] = substr((string) $text, 28);
             } elseif ($text === 'Special Executive Producer:') {
                 foreach ($this->parseOutlines($node) as $producerNode) {
                     $credits['Special Executive Producers'][] = $producerNode['text'];
                 }
-            } elseif (str_starts_with($text, 'Special Executive Producer:')) {
-                $credits['Special Executive Producers'][] = substr($text, 27);
-            } elseif (str_starts_with($text, 'Art By:')) {
-                $credits['Cover Artist'][] = substr($text, 7);
+            } elseif (str_starts_with((string) $text, 'Special Executive Producer:')) {
+                $credits['Special Executive Producers'][] = substr((string) $text, 27);
+            } elseif (str_starts_with((string) $text, 'Art By:')) {
+                $credits['Cover Artist'][] = substr((string) $text, 7);
             }
         }
 
@@ -119,7 +119,7 @@ class ShownotesParser
         }
 
         foreach ($parentNode as $node) {
-            $node['type'] = $node['type'] ?? 'text';
+            $node['type'] ??= 'text';
 
             if ('tabs' === $node['type']) {
                 return $this->parseTabs($node);
@@ -183,7 +183,7 @@ class ShownotesParser
     private function parseClipOutline(array $node): ?array
     {
         $type = $node['type'] ?? (isset($node['url']) ? 'link' : 'text');
-        $title = trim(strip_tags($node['text']));
+        $title = trim(strip_tags((string) $node['text']));
         $uri = $node['url'] ?? false;
 
         if ($type === 'link' && preg_match('/^.*\.(mp3|mp4|m4a|3gp|ogg|wma|webm)$/i', $title)) {
@@ -191,9 +191,9 @@ class ShownotesParser
         } elseif ($type === 'image' && $title == '') {
             $title = 'Image';
         } elseif ($type === 'text' && $title == '') {
-            if (str_contains($node['text'], '<img')) {
+            if (str_contains((string) $node['text'], '<img')) {
                 $matches = [];
-                preg_match('/src="([^"]+)"/', $node['text'], $matches);
+                preg_match('/src="([^"]+)"/', (string) $node['text'], $matches);
 
                 if (isset($matches[1])) {
                     $type = 'image';

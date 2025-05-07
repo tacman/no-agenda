@@ -24,16 +24,16 @@ class ScheduledFileDownload
 
     #[ManyToOne(targetEntity: Episode::class)]
     #[JoinColumn(nullable: false)]
-    private ?Episode $episode;
+    private ?Episode $episode = null;
 
     #[Column(name: 'crawling_data', type: 'string', length: 32)]
-    private ?string $data;
+    private ?string $data = null;
 
     #[Column(type: 'datetime')]
     private ?\DateTimeInterface $lastModifiedAt = null;
 
     #[Column(type: 'datetime')]
-    private ?\DateTimeInterface $initializedAt;
+    private ?\DateTimeInterface $initializedAt = null;
 
     public function getId(): ?int
     {

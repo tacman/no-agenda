@@ -60,7 +60,7 @@ class EpisodeDurationCrawler implements EpisodeFileCrawlerInterface
         $output = $process->getOutput();
 
         preg_match("/Duration: (\d+):(\d+):(\d+)/", $output, $matches);
-        list(, $hours, $minutes, $seconds) = $matches;
+        [, $hours, $minutes, $seconds] = $matches;
 
         return $seconds + ($minutes * 60) + ($hours * 60 * 60);
     }

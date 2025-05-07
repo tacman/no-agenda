@@ -25,11 +25,7 @@ class CrawlingScheduleProvider implements ScheduleProviderInterface
 
     public function getSchedule(): Schedule
     {
-        if (isset($this->schedule)) {
-            return $this->schedule;
-        }
-
-        return $this->schedule = (new Schedule())
+        return $this->schedule ?? $this->schedule = (new Schedule())
             ->with(
                 // Crawl feed
                 RecurringMessage::trigger(
@@ -40,7 +36,7 @@ class CrawlingScheduleProvider implements ScheduleProviderInterface
                         $nextColdRun = $coldTrigger->getNextRunDate($run);
                         $nextHotRun = $hotTrigger->getNextRunDate($run);
 
-                        while (!$this->isBetween($nextHotRun, [4, 7], 20, 23)) {
+                        while (!self::isBetween($nextHotRun, [4, 7], 20, 23)) {
                             $nextHotRun = $hotTrigger->getNextRunDate($nextHotRun);
                         }
 
@@ -55,7 +51,7 @@ class CrawlingScheduleProvider implements ScheduleProviderInterface
                         $trigger = new PeriodicalTrigger('5 minutes');
                         $nextRun = $trigger->getNextRunDate($run);
 
-                        while (!$this->isBetween($nextRun, [4, 7], 16, 19)) {
+                        while (!self::isBetween($nextRun, [4, 7], 16, 19)) {
                             $nextRun = $trigger->getNextRunDate($nextRun);
                         }
 

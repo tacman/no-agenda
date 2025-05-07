@@ -17,11 +17,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\StyleInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'crawl', description: 'Execute a crawling command')]
 class CrawlCommand extends Command
 {
-    protected static $defaultName = 'crawl';
-    protected static $defaultDescription = 'Execute a crawling command';
-
     public function __construct(
         protected readonly EntityManagerInterface $entityManager,
         protected readonly EpisodeRepository $episodeRepository,

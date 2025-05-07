@@ -15,7 +15,7 @@ class AppFixtures extends Fixture
     {
         $storagePath = $_SERVER['APP_STORAGE_PATH'];
 
-        foreach ($this->loadUsers() as list($userIdentifier, $plainPassword, $roles)) {
+        foreach ($this->loadUsers() as [$userIdentifier, $plainPassword, $roles]) {
             $user = (new User())
                 ->setUserIdentifier($userIdentifier)
                 ->setPlainPassword($plainPassword);

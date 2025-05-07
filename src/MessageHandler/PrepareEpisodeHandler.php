@@ -10,8 +10,8 @@ use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 class PrepareEpisodeHandler implements MessageHandlerInterface
 {
     public function __construct(
-        private EpisodeRepository $episodeRepository,
-        private EpisodeProcessor $episodeProcessor,
+        private readonly EpisodeRepository $episodeRepository,
+        private readonly EpisodeProcessor $episodeProcessor,
     ) {}
 
     public function __invoke(PrepareEpisode $message): void

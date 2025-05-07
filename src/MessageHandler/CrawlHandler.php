@@ -10,8 +10,8 @@ use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 class CrawlHandler implements MessageHandlerInterface
 {
     public function __construct(
-        private EpisodeRepository $episodeRepository,
-        private CrawlingProcessor $crawlingProcessor,
+        private readonly EpisodeRepository $episodeRepository,
+        private readonly CrawlingProcessor $crawlingProcessor,
     ) {}
 
     public function __invoke(Crawl $message): void

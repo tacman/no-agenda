@@ -12,6 +12,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
     protected ?array $defaultOrderBy = null;
     protected int $itemsPerPage = 50;
 
+    #[\Override]
     public function findBy(array $criteria = null, array $orderBy = null, $limit = null, $offset = null): array
     {
         $orderBy = array_merge($orderBy ?? [], $this->defaultOrderBy ?? []);
@@ -19,6 +20,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
         return parent::findBy($criteria ?? [], $orderBy, $limit, $offset);
     }
 
+    #[\Override]
     public function findOneBy(array $criteria = null, array $orderBy = null): ?object
     {
         $orderBy = array_merge($orderBy ?? [], $this->defaultOrderBy ?? []);

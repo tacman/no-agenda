@@ -67,6 +67,6 @@ class NotificationSubscription
 
     public function getSubscription(): ?array
     {
-        return json_decode($this->rawSubscription, true);
+        return json_decode((string) $this->rawSubscription, true);
     }
 }

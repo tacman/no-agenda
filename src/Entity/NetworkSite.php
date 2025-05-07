@@ -19,25 +19,25 @@ class NetworkSite
     private ?int $id = null;
 
     #[Column(type: 'string', length: 255)]
-    private ?string $name;
+    private ?string $name = null;
 
     #[Column(type: 'string', length: 255, nullable: true)]
-    private ?string $icon;
+    private ?string $icon = null;
 
     #[Column(type: 'text')]
-    private ?string $description;
+    private ?string $description = null;
 
     #[Column(type: 'string', length: 255)]
-    private ?string $uri;
+    private ?string $uri = null;
 
     #[Column(type: 'string', length: 255)]
-    private ?string $displayUri;
+    private ?string $displayUri = null;
 
     #[Column(type: 'string', length: 255, nullable: true)]
-    private ?string $author;
+    private ?string $author = null;
 
     #[Column(type: 'string', nullable: true)]
-    private ?string $authorUri;
+    private ?string $authorUri = null;
 
     #[Column(type: 'integer')]
     private ?int $priority = 1000;

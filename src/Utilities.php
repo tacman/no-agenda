@@ -10,10 +10,10 @@ class Utilities
             $components = explode(':', $prettyTimestamp);
 
             if (count($components) >= 3) {
-                list($hours, $minutes, $seconds) = $components;
+                [$hours, $minutes, $seconds] = $components;
             } else {
                 $hours = 0;
-                list($minutes, $seconds) = $components;
+                [$minutes, $seconds] = $components;
             }
 
             $timestamp = (int) $seconds;
@@ -31,10 +31,10 @@ class Utilities
         $value = (int) $value;
 
         $hours = floor($value / 60 / 60);
-        $value = $value - ($hours * 60 * 60);
+        $value -= $hours * 60 * 60;
 
         $minutes = floor($value / 60);
-        $value = $value - ($minutes * 60);
+        $value -= $minutes * 60;
 
         $seconds = (string) $value;
         $seconds = strlen($seconds) === 1 ? '0' . $seconds : $seconds;

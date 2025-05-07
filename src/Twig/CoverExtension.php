@@ -15,10 +15,11 @@ class CoverExtension extends AbstractExtension
         private readonly FilterService $filterService,
     ) {}
 
+    #[\Override]
     public function getFilters(): array
     {
         return [
-            new TwigFilter('episode_cover', [$this, 'episodeCover']),
+            new TwigFilter('episode_cover', $this->episodeCover(...)),
         ];
     }
 

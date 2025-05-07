@@ -21,7 +21,7 @@ class MessengerListener implements EventSubscriberInterface
     }
 
     public function __construct(
-        private LoggerInterface $crawlerLogger,
+        private readonly LoggerInterface $crawlerLogger,
     ) {}
 
     public function onReceiveMessage(WorkerMessageReceivedEvent $event): void
@@ -37,7 +37,7 @@ class MessengerListener implements EventSubscriberInterface
         } elseif ($message instanceof PrepareEpisode) {
             $log = sprintf('Preparing episode %s for publication', $message->episodeCode);
         } else {
-            $job = u(get_class($message))->replace('App\\Message\\', '')->folded();
+            $job = u($message::class)->replace('App\\Message\\', '')->folded();
             $log = sprintf('Executing job "%s"', $job);
         }
 
@@ -55,7 +55,7 @@ class MessengerListener implements EventSubscriberInterface
                 $log .= sprintf(' for episode %s', $code);
             }
         } else {
-            $job = u(get_class($message))->replace('App\\Message\\', '')->folded();
+            $job = u($message::class)->replace('App\\Message\\', '')->folded();
             $log = sprintf('Execution of job "%s" failed', $job);
 
             if ($throwable = $event->getThrowable()) {

@@ -86,8 +86,8 @@ class BatSignalCrawler implements CrawlerInterface
 
         foreach ($entries as $entry) {
             if (str_contains($entry['content'] ?? '', 'We’re live') && str_contains($entry['content'] ?? '', 'No Agenda')) {
-                preg_match('/episode (\d+)/', $entry['content'],$matches);
-                list(, $code) = $matches;
+                preg_match('/episode (\d+)/', (string) $entry['content'],$matches);
+                [, $code] = $matches;
 
                 $signal = (new BatSignal())
                     ->setCode($code)

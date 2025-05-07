@@ -22,7 +22,7 @@ use Doctrine\ORM\Mapping\Table;
 #[Put(security: "is_granted('ROLE_ADMIN') or object.owner == user")]
 #[GetCollection]
 #[Post(security: "is_granted('ROLE_ADMIN')")]
-class Episode
+class Episode implements \Stringable
 {
     #[Id]
     #[GeneratedValue]
@@ -30,16 +30,16 @@ class Episode
     private ?int $id = null;
 
     #[Column(type: 'string', length: 16)]
-    private ?string $code;
+    private ?string $code = null;
 
     #[Column(type: 'string', length: 255)]
-    private ?string $name;
+    private ?string $name = null;
 
     #[Column(type: 'string', length: 255)]
-    private ?string $author;
+    private ?string $author = null;
 
     #[Column(type: 'date')]
-    private ?\DateTimeInterface $publishedAt;
+    private ?\DateTimeInterface $publishedAt = null;
 
     #[Column(type: 'boolean')]
     private bool $published = false;
@@ -51,7 +51,7 @@ class Episode
     private ?int $duration = null;
 
     #[Column(type: 'text')]
-    private ?string $recordingUri;
+    private ?string $recordingUri = null;
 
     #[Column(type: 'text', nullable: true)]
     private ?string $chaptersUri = null;

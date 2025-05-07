@@ -98,7 +98,7 @@ class FeedCrawler implements CrawlerInterface
                 continue;
             }
 
-            list($code, $name) = $titleParts;
+            [$code, $name] = $titleParts;
             $code = trim($code, ' :"-');
             $name = trim($name, ' :"-');
 

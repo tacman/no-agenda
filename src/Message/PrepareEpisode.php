@@ -2,7 +2,7 @@
 
 namespace App\Message;
 
-class PrepareEpisode
+class PrepareEpisode implements \Stringable
 {
     public function __construct(
         public readonly string $episodeCode,

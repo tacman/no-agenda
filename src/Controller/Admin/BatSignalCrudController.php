@@ -15,6 +15,7 @@ class BatSignalCrudController extends AbstractCrudController
         return BatSignal::class;
     }
 
+    #[\Override]
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
@@ -24,6 +25,7 @@ class BatSignalCrudController extends AbstractCrudController
             ->showEntityActionsInlined();
     }
 
+    #[\Override]
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('code');

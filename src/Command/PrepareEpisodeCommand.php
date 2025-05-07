@@ -10,11 +10,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'prepare', description: 'Prepare an episode for publication')]
 class PrepareEpisodeCommand extends Command
 {
-    protected static $defaultName = 'prepare';
-    protected static $defaultDescription = 'Prepare an episode for publication';
-
     public function __construct(
         private readonly EpisodeRepository $episodeRepository,
         private readonly EpisodeProcessor $episodeProcessor,

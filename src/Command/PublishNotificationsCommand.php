@@ -10,11 +10,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'publish-notifications', description: 'Publish push notifications for an episode')]
 class PublishNotificationsCommand extends Command
 {
-    protected static $defaultName = 'publish-notifications';
-    protected static $defaultDescription = 'Publish push notifications for an episode';
-
     public function __construct(
         private readonly EpisodeRepository $episodeRepository,
         private readonly NotificationPublisher $notificationPublisher,

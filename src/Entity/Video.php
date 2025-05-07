@@ -19,13 +19,10 @@ class Video
     private ?int $id = null;
 
     #[Column(type: 'string', length: 255)]
-    private ?string $title;
+    private ?string $title = null;
 
     #[Column(type: 'datetime')]
-    private ?\DateTimeInterface $publishedAt;
-
-    #[Column(type: 'string', length: 32)]
-    private string $youtubeId;
+    private ?\DateTimeInterface $publishedAt = null;
 
     #[Column(type: 'string', length: 255, nullable: true)]
     private ?string $youtubeEtag = null;
@@ -33,9 +30,9 @@ class Video
     #[Column]
     private \DateTimeImmutable $lastModifiedAt;
 
-    public function __construct(string $youtubeId)
+    public function __construct(#[Column(type: 'string', length: 32)]
+    private string $youtubeId)
     {
-        $this->youtubeId = $youtubeId;
         $this->lastModifiedAt = new \DateTimeImmutable();
     }
 

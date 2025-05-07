@@ -15,6 +15,7 @@ class UserCrudController extends AbstractCrudController
         return User::class;
     }
 
+    #[\Override]
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
@@ -22,6 +23,7 @@ class UserCrudController extends AbstractCrudController
             ->showEntityActionsInlined();
     }
 
+    #[\Override]
     public function configureFields(string $pageName): iterable
     {
         $isIndex = $pageName === Crud::PAGE_INDEX;

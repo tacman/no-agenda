@@ -23,10 +23,10 @@ use function Symfony\Component\String\u;
 class ApiController extends AbstractController
 {
     public function __construct(
-        private EntityManagerInterface $entityManager,
-        private EpisodeRepository $episodeRepository,
-        private CrawlingProcessor $crawlingProcessor,
-        private LoggerInterface $crawlerLogger,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly EpisodeRepository $episodeRepository,
+        private readonly CrawlingProcessor $crawlingProcessor,
+        private readonly LoggerInterface $crawlerLogger,
     ) {}
 
     #[Route('/crawl/{data}', name: 'crawl')]
@@ -39,7 +39,7 @@ class ApiController extends AbstractController
         $this->crawlerLogger->pushHandler(new StreamHandler('php://output'));
 
         $response = new StreamedResponse();
-        $response->setCallback(function () use ($data, $episode) {
+        $response->setCallback(function () use ($data, $episode): void {
             $title = u('Executing ')->append(CrawlingProcessor::$crawlerClasses[$data]);
             $separator = u('=')->repeat(16);
 

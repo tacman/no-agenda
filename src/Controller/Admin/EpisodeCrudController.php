@@ -25,6 +25,7 @@ class EpisodeCrudController extends AbstractCrudController
         return Episode::class;
     }
 
+    #[\Override]
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
@@ -33,6 +34,7 @@ class EpisodeCrudController extends AbstractCrudController
             ->showEntityActionsInlined();
     }
 
+    #[\Override]
     public function configureActions(Actions $actions): Actions
     {
         $episodeUrl = Action::new('view', 'Go To Episode', 'fas fa-external-link-alt')
@@ -44,6 +46,7 @@ class EpisodeCrudController extends AbstractCrudController
             ->add(Crud::PAGE_DETAIL, $episodeUrl);
     }
 
+    #[\Override]
     public function configureFields(string $pageName): iterable
     {
         $isIndex = $pageName === Crud::PAGE_INDEX;

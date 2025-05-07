@@ -13,10 +13,11 @@ class AdminExtension extends AbstractExtension
         private readonly ScheduledFileDownloadRepository $downloadRepository,
     ) {}
 
+    #[\Override]
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('admin_file_download', [$this, 'adminFileDownload'], ['is_safe' => ['html' => true]]),
+            new TwigFunction('admin_file_download', $this->adminFileDownload(...), ['is_safe' => ['html' => true]]),
         ];
     }
 

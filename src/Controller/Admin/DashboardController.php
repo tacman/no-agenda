@@ -23,12 +23,14 @@ class DashboardController extends AbstractDashboardController
         private readonly EpisodeRepository $episodeRepository,
     ) {}
 
+    #[\Override]
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
             ->setTitle('No Agenda Website Console');
     }
 
+    #[\Override]
     public function configureAssets(): Assets
     {
         return Assets::new()
@@ -36,6 +38,7 @@ class DashboardController extends AbstractDashboardController
                 ->webpackEntrypointName('console'));
     }
 
+    #[\Override]
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fas fa-home');
@@ -51,6 +54,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToRoute('Back to Site', 'fas fa-door-open', 'root');
     }
 
+    #[\Override]
     public function configureUserMenu(UserInterface $user): UserMenu
     {
         return parent::configureUserMenu($user)
@@ -58,6 +62,7 @@ class DashboardController extends AbstractDashboardController
     }
 
     #[Route('/console', name: 'admin')]
+    #[\Override]
     public function index(): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');

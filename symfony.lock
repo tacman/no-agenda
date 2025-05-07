@@ -19,9 +19,6 @@
     "benlipp/srt-parser": {
         "version": "v1.1.1"
     },
-    "clue/stream-filter": {
-        "version": "v1.6.0"
-    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.3"
     },
@@ -36,9 +33,6 @@
         "files": [
             "config/routes/annotations.yaml"
         ]
-    },
-    "doctrine/cache": {
-        "version": "2.1.1"
     },
     "doctrine/collections": {
         "version": "1.6.8"
@@ -139,9 +133,6 @@
     "guzzlehttp/psr7": {
         "version": "2.2.1"
     },
-    "http-interop/http-factory-guzzle": {
-        "version": "1.2.0"
-    },
     "imagine/imagine": {
         "version": "1.3.1"
     },
@@ -208,24 +199,6 @@
     },
     "phar-io/version": {
         "version": "3.2.1"
-    },
-    "php-http/client-common": {
-        "version": "2.5.0"
-    },
-    "php-http/discovery": {
-        "version": "1.14.1"
-    },
-    "php-http/httplug": {
-        "version": "2.3.0"
-    },
-    "php-http/message": {
-        "version": "1.13.0"
-    },
-    "php-http/message-factory": {
-        "version": "v1.0.2"
-    },
-    "php-http/promise": {
-        "version": "1.1.0"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -354,9 +327,6 @@
     },
     "sebastian/version": {
         "version": "3.0.2"
-    },
-    "sentry/sdk": {
-        "version": "3.1.1"
     },
     "sentry/sentry": {
         "version": "3.4.0"
@@ -626,6 +596,18 @@
     },
     "symfony/runtime": {
         "version": "v5.4.5"
+    },
+    "symfony/scheduler": {
+        "version": "7.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "7.2",
+            "ref": "caea3c928ee9e1b21288fd76aef36f16ea355515"
+        },
+        "files": [
+            "src/Schedule.php"
+        ]
     },
     "symfony/security-bundle": {
         "version": "5.4",

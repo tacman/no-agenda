@@ -2,7 +2,7 @@
 
 namespace App\Message;
 
-class Crawl
+class Crawl implements \Stringable
 {
     public readonly \DateTime $initializedAt;
 

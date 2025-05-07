@@ -77,7 +77,7 @@ class BuildAssetsCommand extends Command
     private function buildServiceWorker(string $timestamp): void
     {
         $assets = json_decode(file_get_contents($this->webpackManifest), true);
-        $logoAsset = array_values(array_filter($assets, fn ($asset) => str_contains($asset, 'website-icon-192')))[0];
+        $logoAsset = array_values(array_filter($assets, fn ($asset): bool => str_contains((string) $asset, 'website-icon-192')))[0];
 
         $contents = $this->twig->render('service_worker.js.twig', [
             'timestamp' => $timestamp,

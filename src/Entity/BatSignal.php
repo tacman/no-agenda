@@ -19,10 +19,10 @@ class BatSignal
     private ?int $id = null;
 
     #[Column(type: 'string', length: 16)]
-    private ?string $code;
+    private ?string $code = null;
 
     #[Column(type: 'datetime')]
-    private ?\DateTimeInterface $deployedAt;
+    private ?\DateTimeInterface $deployedAt = null;
 
     public ?string $postId = null;
 

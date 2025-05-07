@@ -9,15 +9,13 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'refresh-cover-cache', description: 'Refreshes the public cache of episode covers')]
 class RefreshCoverCacheCommand extends Command
 {
-    protected static $defaultName = 'refresh-cover-cache';
-    protected static $defaultDescription = 'Refreshes the public cache of episode covers';
-
     public function __construct(
-        private EpisodeRepository $episodeRepository,
-        private FilterManager $filterManager,
-        private FilterService $filterService
+        private readonly EpisodeRepository $episodeRepository,
+        private readonly FilterManager $filterManager,
+        private readonly FilterService $filterService
     ) {
         parent::__construct();
     }
@@ -40,8 +38,8 @@ class RefreshCoverCacheCommand extends Command
         $filters = array_keys($this->filterManager->getFilterConfiguration()->all());
 
         foreach ($filters as $filter) {
-            $this->filterService->bustCache("${code}.png", $filter);
-            $this->filterService->getUrlOfFilteredImage("${code}.png", $filter);
+            $this->filterService->bustCache("{$code}.png", $filter);
+            $this->filterService->getUrlOfFilteredImage("{$code}.png", $filter);
         }
     }
 }

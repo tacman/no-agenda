@@ -16,6 +16,7 @@ class NetworkSiteCrudController extends AbstractCrudController
         return NetworkSite::class;
     }
 
+    #[\Override]
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
@@ -25,6 +26,7 @@ class NetworkSiteCrudController extends AbstractCrudController
             ->showEntityActionsInlined();
     }
 
+    #[\Override]
     public function configureFields(string $pageName): iterable
     {
         yield TextField::new('name');

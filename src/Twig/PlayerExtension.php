@@ -17,17 +17,19 @@ class PlayerExtension extends AbstractExtension
 {
     public function __construct(private readonly RouterInterface $router) {}
 
+    #[\Override]
     public function getFilters(): array
     {
         return [
-            new TwigFilter('player_metadata', [$this, 'episodeMetadata'], ['needs_environment' => true]),
+            new TwigFilter('player_metadata', $this->episodeMetadata(...), ['needs_environment' => true]),
         ];
     }
 
+    #[\Override]
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('player_livestream_metadata', [$this, 'livestreamMetadata'], ['needs_environment' => true])
+            new TwigFunction('player_livestream_metadata', $this->livestreamMetadata(...), ['needs_environment' => true])
         ];
     }
 

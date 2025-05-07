@@ -21,7 +21,7 @@ class FileDownloader
 {
     use LoggerAwareTrait;
 
-    private const DATE_FORMAT = 'Y-m-d H:i:s';
+    private const string DATE_FORMAT = 'Y-m-d H:i:s';
 
     private array $staticSources = [];
 
@@ -34,7 +34,7 @@ class FileDownloader
         $this->logger = new NullLogger();
 
         if ($staticSources = $_SERVER['STATIC_SOURCES'] ?? false) {
-            foreach (explode(',', $staticSources) as $staticSource) {
+            foreach (explode(',', (string) $staticSources) as $staticSource) {
                 $staticSource = explode('>', $staticSource);
                 $this->staticSources[$staticSource[0]] = $staticSource[1];
             }
@@ -168,7 +168,7 @@ class FileDownloader
             }
 
             $baseUri = rtrim($baseUri, '/') . '/';
-            $basePath = rtrim($basePath, '/') . '/';
+            $basePath = rtrim((string) $basePath, '/') . '/';
 
             $path = $basePath . substr($uri, strlen($baseUri));
 
