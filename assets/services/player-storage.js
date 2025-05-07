@@ -1,6 +1,6 @@
-import naPlayer from './player';
-import naSettings from './settings';
-import naStorage from './storage';
+import naPlayer from './player.js';
+import naSettings from './settings.js';
+import naStorage from './storage.js';
 
 class PlayerStorage {
   constructor() {

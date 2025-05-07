@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 import { DateTime } from 'luxon';
 
-import { currentlyRecording, nextRecording } from '../utilities/recording_time';
+import { currentlyRecording, nextRecording } from '../utilities/recording_time.js';
 
 export default class extends Controller {
   connect() {

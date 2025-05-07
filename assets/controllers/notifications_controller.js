@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import naSettings from '../services/settings';
+import naSettings from '../services/settings.js';
 
 export default class extends Controller {
   static values = {

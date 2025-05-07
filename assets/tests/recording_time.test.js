@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 
-import { currentlyRecording, nextRecording } from '../utilities/recording_time';
+import { currentlyRecording, nextRecording } from '../utilities/recording_time.js';
 
 const recordingTimes = [
   [4, 11],

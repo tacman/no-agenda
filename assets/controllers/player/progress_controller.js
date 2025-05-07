@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 
-import naPlayer from '../../services/player';
-import { formatTimestamp } from '../../utilities/timestamps';
+import naPlayer from '../../services/player.js';
+import { formatTimestamp } from '../../utilities/timestamps.js';
 
 export default class extends Controller {
   static targets = [

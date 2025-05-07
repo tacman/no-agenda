@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 import SrtParser from 'srt-parser-2';
 
-import naPlayer from '../../services/player';
+import naPlayer from '../../services/player.js';
 
 const srtParser = new SrtParser();
 

@@ -1,6 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 
-import swup from '../scripts/swup';
+import swup from '../scripts/swup.js';
 
 export default class extends Controller {
   static targets = [

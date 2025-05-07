@@ -20,6 +20,7 @@
 
     {% block stylesheets %}
       {{ encore_entry_link_tags('app', null, 'app') }}
+{#      <link rel="stylesheet" href="{{ asset('app.scss') }}">#}
 
       <noscript>
         <style>
@@ -31,6 +32,8 @@
     {% endblock %}
 
     {% block scripts %}
+      {% block importmap %}{{ importmap('app') }}{% endblock %}
+
       <script>
         {% if app.environment == 'dev' %}
           window.naDebug = true;

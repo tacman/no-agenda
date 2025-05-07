@@ -1,8 +1,8 @@
 import { Controller } from '@hotwired/stimulus';
 
-import naSettings from '../services/settings';
-import naStorage from '../services/storage';
-import { formatTimestamp } from '../utilities/timestamps';
+import naSettings from '../services/settings.js';
+import naStorage from '../services/storage.js';
+import { formatTimestamp } from '../utilities/timestamps.js';
 
 export default class extends Controller {
   static targets = [

@@ -34,6 +34,7 @@
         "phpstan/phpdoc-parser": "^2.1",
         "sentry/sentry-symfony": "^5.2",
         "symfony/asset": "^6.4 || ^7.2",
+        "symfony/asset-mapper": "^7.3",
         "symfony/console": "^6.4 || ^7.2",
         "symfony/doctrine-messenger": "^6.4 || ^7.2",
         "symfony/dotenv": "^6.4 || ^7.2",
@@ -60,6 +61,7 @@
         "symfony/web-link": "^6.4 || ^7.2",
         "symfony/webpack-encore-bundle": "^1.7|^2.2",
         "symfony/yaml": "^6.4 || ^7.2",
+        "symfonycasts/sass-bundle": "^0.8.2",
         "vipnytt/opmlparser": "dev-master"
     },
     "require-dev": {
@@ -101,7 +103,8 @@
     "scripts": {
         "auto-scripts": {
             "assets:install %PUBLIC_DIR%": "symfony-cmd",
-            "assets:build": "symfony-cmd"
+            "assets:build": "symfony-cmd",
+            "importmap:install": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"

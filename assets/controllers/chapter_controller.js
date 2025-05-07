@@ -1,6 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 
-import naPlayer from '../services/player';
+import naPlayer from '../services/player.js';
 
 export default class extends Controller {
   static targets = [

@@ -1,15 +1,15 @@
-import naPlayer from './services/player';
-import naPlayerStorage from './services/player-storage';
-import naSettings from './services/settings';
-import naStorage from './services/storage';
+import naPlayer from './services/player.js';
+import naPlayerStorage from './services/player-storage.js';
+import naSettings from './services/settings.js';
+import naStorage from './services/storage.js';
 
 // Include scripts
-import './scripts/clipboard';
-import './scripts/stimulus';
-import './scripts/swup';
+import './scripts/clipboard.js';
+import './scripts/stimulus.js';
+import './scripts/swup.js';
 
 // Include web components
-import '@octopodcasting/player';
+import '@octopodcasting/player.js';
 
 // Include CSS
 import './app.scss';
