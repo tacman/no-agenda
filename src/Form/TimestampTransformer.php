@@ -7,7 +7,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class TimestampTransformer implements DataTransformerInterface
 {
-    public function transform($timestampAsInt)
+    public function transform(mixed $timestampAsInt): mixed
     {
         if (!$timestampAsInt) {
             return '';

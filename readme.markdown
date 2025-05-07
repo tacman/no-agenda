@@ -53,6 +53,14 @@ docker compose exec app bin/console doctrine:fixtures:load
 docker compose exec app bin/console refresh-cover-cache
 ```
 
+Or from the CLI in dev (using sqlite)
+
+```bash
+bin/console d:sch:update --force
+bin/console doctrine:fixtures:load
+bin/console crawl --all cover
+```
+
 ### Crawling
 
 Crawling can be done in one of two ways: by manual execution or through the
