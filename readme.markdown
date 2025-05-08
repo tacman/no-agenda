@@ -25,9 +25,12 @@ composer install
 bin/console sass:build
 bin/console doctrine:schema:update --force
 bin/console doctrine:fixtures:load -n
+bin/console crawl --all covers
 symfony server:start -d
+symfony open:local
 ```
 
+bin/console doctrine:fixtures:load -n
 
 ## Docker Installation
 
