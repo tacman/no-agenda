@@ -124,6 +124,10 @@ docker compose exec app bin/console messenger:consume crawler
 See the [Symfony Messenger documentation](https://symfony.com/doc/4.4/messenger.html)
 for information on the messenger queue.
 
+## Database
+
+![Database Diagram](/assets/images/db.svg)
+
 ## Push notifications
 
 To enable push notification support you'll need to generate VAPID keys.

@@ -30,9 +30,12 @@ class BatSignalCrudController extends AbstractCrudController
     {
         yield TextField::new('code');
         yield DateTimeField::new('deployedAt')
+            ->hideOnForm()
             ->renderAsText()
             ->setFormTypeOptions([
                 'format' => 'yyyy-MM-dd HH:mm:ss',
             ]);
+        yield DateTimeField::new('deployedAt')
+            ->onlyOnForms();
     }
 }

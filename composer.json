@@ -67,6 +67,7 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.0",
+        "jawira/doctrine-diagram-bundle": "^0.8.0",
         "phpunit/phpunit": "^9.5",
         "rector/rector": "*",
         "symfony/browser-kit": "^6.4 || ^7.2",
@@ -112,7 +113,9 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "diagram": "mkdir -p assets/images && bin/console doctrine:diagram --filename=assets/images/db.svg --exclude=doctrine_migration_versions,messenger_messages"
+
     },
     "config": {
         "allow-plugins": {
@@ -128,9 +131,9 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": "true",
             "docker": false,
-            "require": "^7.2"
+            "require": "7.3.*"
         }
     }
 }

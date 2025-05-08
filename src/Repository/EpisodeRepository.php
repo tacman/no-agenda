@@ -58,7 +58,7 @@ class EpisodeRepository extends AbstractRepository
             'published' => true,
         ];
 
-        return $this->findBy($published ? $publishedCriteria : null, null, $count);
+        return $this->findBy($published ? $publishedCriteria : [], [], $count);
     }
 
     public function findPublishedEpisodes(): array
