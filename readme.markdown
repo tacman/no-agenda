@@ -25,7 +25,7 @@ composer install
 bin/console sass:build
 bin/console doctrine:schema:update --force
 bin/console doctrine:fixtures:load -n
-bin/console crawl --all covers
+bin/console crawl --all cover
 symfony server:start -d
 symfony open:local
 ```

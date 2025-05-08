@@ -9,6 +9,7 @@ use App\Crawling\EpisodeFileCrawlerInterface;
 use App\Entity\Episode;
 use App\Repository\EpisodeRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,7 +18,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\StyleInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[\Symfony\Component\Console\Attribute\AsCommand(name: 'crawl', description: 'Execute a crawling command')]
+#[AsCommand(name: 'crawl', description: 'Execute a crawling command')]
 class CrawlCommand extends Command
 {
     public function __construct(
