@@ -17,9 +17,14 @@ wich requires to be run separately from the main application.
 
 ```bash
 git clone git@github.com:tacman/no-agenda.git && cd no-agenda
+echo "DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db" >> .env.local
+echo "APP_STORAGE_PATH=/tmp/storage" >> .env.local
+cat .env.local
+mkdir /tmp/storage/covers -p
 composer install
 bin/console sass:build
-bin/console doctrine:fixtures:load
+bin/console doctrine:schema:update --force
+bin/console doctrine:fixtures:load -n
 symfony server:start -d
 ```
 

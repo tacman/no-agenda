@@ -29,6 +29,7 @@ class CoverExtension extends AbstractExtension
             return $this->filterService->getUrlOfFilteredImage(sprintf('%s.png', $episode->getCode()), sprintf('cover_%s', $size));
         }
 
-        return $this->assetExtension->getAssetUrl(sprintf('build/images/placeholder_%s.jpg', $size), 'app');
+//        return $this->assetExtension->getAssetUrl(sprintf('build/images/placeholder_%s.jpg', $size), 'app');
+        return $this->assetExtension->getAssetUrl(sprintf('build/images/placeholder_%s.jpg', $size));
     }
 }

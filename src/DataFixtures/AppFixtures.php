@@ -8,9 +8,14 @@ use App\Entity\User;
 use App\Entity\Video;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    public function __construct(private UserPasswordHasherInterface $hasher)
+    {
+    }
+
     public function load(ObjectManager $manager): void
     {
         $storagePath = $_SERVER['APP_STORAGE_PATH'];
@@ -20,6 +25,8 @@ class AppFixtures extends Fixture
                 ->setUserIdentifier($userIdentifier)
                 ->setPlainPassword($plainPassword);
 
+            $password  = $this->hasher->hashPassword($user, $plainPassword);
+            $user->setPassword($password);
             foreach ($roles as $role) {
                 $user->addRole($role);
             }
