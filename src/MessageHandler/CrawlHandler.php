@@ -5,6 +5,7 @@ namespace App\MessageHandler;
 use App\Crawling\CrawlingProcessor;
 use App\Message\Crawl;
 use App\Repository\EpisodeRepository;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 class CrawlHandler implements MessageHandlerInterface
@@ -14,6 +15,7 @@ class CrawlHandler implements MessageHandlerInterface
         private readonly CrawlingProcessor $crawlingProcessor,
     ) {}
 
+    #[AsMessageHandler]
     public function __invoke(Crawl $message): void
     {
         $episode = $message->episodeCode ? $this->episodeRepository->findOneByCode($message->episodeCode) : null;

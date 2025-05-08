@@ -5,9 +5,11 @@ namespace App\MessageHandler;
 use App\Crawling\EpisodeProcessor;
 use App\Message\PrepareEpisode;
 use App\Repository\EpisodeRepository;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessage;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-class PrepareEpisodeHandler implements MessageHandlerInterface
+#[AsMessageHandler]
+class PrepareEpisodeHandler
 {
     public function __construct(
         private readonly EpisodeRepository $episodeRepository,

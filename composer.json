@@ -2,6 +2,7 @@
     "name": "noagenda/website",
     "type": "project",
     "license": "MIT",
+    "prefer-stable": true,
     "minimum-stability": "beta",
     "require": {
         "php": "^8.3",
@@ -26,7 +27,7 @@
         "easycorp/easyadmin-bundle": "^4.2",
         "laminas/laminas-feed": "^2.10",
         "liip/imagine-bundle": "^2.1",
-        "minishlink/web-push": "*",
+        "minishlink/web-push": "^9.0",
         "nelmio/cors-bundle": "^2.5",
         "pagerfanta/doctrine-orm-adapter": "^3.6|^4.7",
         "pagerfanta/twig": "^3.6|^v4.7",
@@ -59,7 +60,6 @@
         "symfony/twig-bundle": "^6.4 || ^7.2",
         "symfony/validator": "^6.4 || ^7.2",
         "symfony/web-link": "^6.4 || ^7.2",
-        "symfony/webpack-encore-bundle": "^1.7|^2.2",
         "symfony/yaml": "^6.4 || ^7.2",
         "symfonycasts/sass-bundle": "^0.8.2",
         "vipnytt/opmlparser": "dev-master"
@@ -129,7 +129,7 @@
         "symfony": {
             "allow-contrib": false,
             "docker": false,
-            "require": "^7.3"
+            "require": "^7.2"
         }
     }
 }

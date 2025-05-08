@@ -13,7 +13,18 @@ this application has a built-in crawler to fetch data from different sources.
 To control the flow of crawling jobs the application uses a messenger queue
 wich requires to be run separately from the main application.
 
-## Installation
+## Local installation (with Symfony CLI)
+
+```bash
+git clone git@github.com:tacman/no-agenda.git && cd no-agenda
+composer install
+bin/console sass:build
+bin/console doctrine:fixtures:load
+symfony server:start -d
+```
+
+
+## Docker Installation
 
 You need [Docker](https://www.docker.com/) to run this application. For more
 information on managing the application, see the [Symfony 5.4 documentation](https://symfony.com/doc/5.4/index.html).

@@ -35,6 +35,9 @@ class NotificationPublisher
 
     public function sendUserEpisodeNotifications(Episode $episode): void
     {
+        // hack until webpush is fixed
+
+        return;
         if (!$this->pushNotificationProcessor) {
             $this->logger->info('Push notifications were not enabled');
 

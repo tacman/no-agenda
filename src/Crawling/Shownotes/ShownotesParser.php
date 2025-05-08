@@ -39,7 +39,7 @@ class ShownotesParser
         }
 
         foreach ($clips as $category => $categoryClips) {
-            usort($categoryClips, fn ($a, $b) => $a['sort_title'] <=> $b['sort_title']);
+            usort($categoryClips, fn ($a, $b): int => $a['sort_title'] <=> $b['sort_title']);
 
             $clips[$category] = $categoryClips;
         }
@@ -106,7 +106,7 @@ class ShownotesParser
     {
         $outlines = $this->getTab('Shownotes');
 
-        return array_filter($outlines, fn (array $outlines) => array_key_exists('@outlines', $outlines));
+        return array_filter($outlines, fn (array $outlines): bool => array_key_exists('@outlines', $outlines));
     }
 
     private function findTabs($parentNode = null): ?array
