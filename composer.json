@@ -133,7 +133,7 @@
         "symfony": {
             "allow-contrib": "true",
             "docker": false,
-            "require": "7.3.*"
+            "require": "^7.3"
         }
     }
 }
