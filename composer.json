@@ -67,7 +67,7 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.0",
-        "jawira/doctrine-diagram-bundle": "^0.8.0",
+        "jawira/doctrine-diagram-bundle": "dev-main",
         "phpunit/phpunit": "^9.5",
         "rector/rector": "*",
         "symfony/browser-kit": "^6.4 || ^7.2",

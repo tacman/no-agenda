@@ -124,9 +124,9 @@ docker compose exec app bin/console messenger:consume crawler
 See the [Symfony Messenger documentation](https://symfony.com/doc/4.4/messenger.html)
 for information on the messenger queue.
 
-## Database
+## Database Entities
 
-![Database Diagram](/assets/images/db.svg)
+![Database Diagram](assets/docs/database.svg)
 
 ## Push notifications
 
