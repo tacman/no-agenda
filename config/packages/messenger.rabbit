@@ -1,0 +1,50 @@
+framework:
+    messenger:
+        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
+        failure_transport: failed
+
+        transports:
+            # https://symfony.com/doc/current/messenger.html#transport-configuration
+            async:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                retry_strategy:
+                    max_retries: 3
+                    multiplier: 2
+            crawler:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+#                options:
+#                    queue_name: crawler
+#                    auto_setup: false
+                retry_strategy:
+                    max_retries: 3
+                    multiplier: 2
+            failed:
+                dsn: 'doctrine://default'
+                options:
+                    queue_name: failed
+                    auto_setup: false
+
+        routing:
+            'App\Message\Crawl': crawler
+            'App\Message\PrepareEpisode': crawler
+
+        default_bus: command.bus
+        buses:
+            command.bus:
+                middleware:
+                    -
+                        dispatch_after_current_bus
+                    -
+                        doctrine_ping_connection
+                    -
+                        doctrine_close_connection
+            crawling.bus:
+                middleware:
+                    -
+                        dispatch_after_current_bus
+                    -
+                        doctrine_ping_connection
+                    -
+                        doctrine_close_connection
+                    -
+                        doctrine_transaction
