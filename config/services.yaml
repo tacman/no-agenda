@@ -3,7 +3,7 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
-            $crawlers: '@crawler_locator'
+            $crawlers: !tagged_locator crawler
             $httpClient: '@http_client'
 
     App\:
@@ -41,10 +41,5 @@ services:
                 publicKey: '%env(VAPID_PUBLIC_KEY)%'
         calls:
             - setAutomaticPadding: [false] # https://github.com/web-push-libs/web-push-php#payload-length-security-and-performance
-
-    crawler_locator:
-        class: Symfony\Component\DependencyInjection\ServiceLocator
-        arguments:
-            - !tagged_iterator crawler
 
     Symfony\Bridge\Twig\Extension\AssetExtension: '@twig.extension.assets'
