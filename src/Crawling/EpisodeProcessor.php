@@ -43,7 +43,6 @@ class EpisodeProcessor
     {
         $this->logger->collect();
 
-        $this->crawl($episode, 'cover');
         $this->crawl($episode, 'shownotes');
         $this->crawl($episode, 'duration');
 

@@ -917,107 +917,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     enable_profiler?: bool|Param, // Whether or not to enable the profiler collector to calculate and visualize migration status. This adds some queries overhead. // Default: false
  *     transactional?: bool|Param, // Whether or not to wrap migrations in a single transaction. // Default: true
  * }
- * @psalm-type LiipImagineConfig = array{
- *     resolvers?: array<string, array{ // Default: []
- *         web_path?: array{
- *             web_root?: scalar|Param|null, // Default: "%kernel.project_dir%/public"
- *             cache_prefix?: scalar|Param|null, // Default: "media/cache"
- *         },
- *         aws_s3?: array{
- *             bucket?: scalar|Param|null,
- *             cache?: scalar|Param|null, // Default: false
- *             use_psr_cache?: bool|Param, // Default: false
- *             acl?: scalar|Param|null, // Default: "public-read"
- *             cache_prefix?: scalar|Param|null, // Default: ""
- *             client_id?: scalar|Param|null, // Default: null
- *             client_config?: list<mixed>,
- *             get_options?: array<string, scalar|Param|null>,
- *             put_options?: array<string, scalar|Param|null>,
- *             proxies?: array<string, scalar|Param|null>,
- *         },
- *         flysystem?: array{
- *             filesystem_service?: scalar|Param|null,
- *             cache_prefix?: scalar|Param|null, // Default: ""
- *             root_url?: scalar|Param|null,
- *             visibility?: "public"|"private"|"noPredefinedVisibility"|Param, // Default: "public"
- *         },
- *     }>,
- *     loaders?: array<string, array{ // Default: []
- *         stream?: array{
- *             wrapper?: scalar|Param|null,
- *             context?: scalar|Param|null, // Default: null
- *         },
- *         filesystem?: array{
- *             locator?: "filesystem"|"filesystem_insecure"|Param, // Using the "filesystem_insecure" locator is not recommended due to a less secure resolver mechanism, but is provided for those using heavily symlinked projects. // Default: "filesystem"
- *             data_root?: Param|string|list<scalar|Param|null>,
- *             allow_unresolvable_data_roots?: bool|Param, // Default: false
- *             bundle_resources?: array{
- *                 enabled?: bool|Param, // Default: false
- *                 access_control_type?: "blacklist"|"whitelist"|Param, // Sets the access control method applied to bundle names in "access_control_list" into a blacklist or whitelist. // Default: "blacklist"
- *                 access_control_list?: list<scalar|Param|null>,
- *             },
- *         },
- *         flysystem?: array{
- *             filesystem_service?: scalar|Param|null,
- *         },
- *         asset_mapper?: array<mixed>,
- *         chain?: array{
- *             loaders?: list<scalar|Param|null>,
- *         },
- *     }>,
- *     driver?: scalar|Param|null, // Default: "gd"
- *     cache?: scalar|Param|null, // Default: "default"
- *     cache_base_path?: scalar|Param|null, // Default: ""
- *     data_loader?: scalar|Param|null, // Default: "default"
- *     default_image?: scalar|Param|null, // Default: null
- *     default_filter_set_settings?: array{
- *         quality?: scalar|Param|null, // Default: 100
- *         jpeg_quality?: scalar|Param|null, // Default: null
- *         png_compression_level?: scalar|Param|null, // Default: null
- *         png_compression_filter?: scalar|Param|null, // Default: null
- *         format?: scalar|Param|null, // Default: null
- *         animated?: bool|Param, // Default: false
- *         cache?: scalar|Param|null, // Default: null
- *         data_loader?: scalar|Param|null, // Default: null
- *         default_image?: scalar|Param|null, // Default: null
- *         filters?: array<string, array<string, mixed>>,
- *         post_processors?: array<string, array<string, mixed>>,
- *     },
- *     controller?: array{
- *         filter_action?: scalar|Param|null, // Default: "Liip\\ImagineBundle\\Controller\\ImagineController::filterAction"
- *         filter_runtime_action?: scalar|Param|null, // Default: "Liip\\ImagineBundle\\Controller\\ImagineController::filterRuntimeAction"
- *         redirect_response_code?: int|Param, // Default: 302
- *     },
- *     filter_sets?: array<string, array{ // Default: []
- *         quality?: scalar|Param|null,
- *         jpeg_quality?: scalar|Param|null,
- *         png_compression_level?: scalar|Param|null,
- *         png_compression_filter?: scalar|Param|null,
- *         format?: scalar|Param|null,
- *         animated?: bool|Param,
- *         cache?: scalar|Param|null,
- *         data_loader?: scalar|Param|null,
- *         default_image?: scalar|Param|null,
- *         filters?: array<string, array<string, mixed>>,
- *         post_processors?: array<string, array<string, mixed>>,
- *     }>,
- *     twig?: array{
- *         mode?: "none"|"lazy"|"legacy"|Param, // Twig mode: none/lazy/legacy (default) // Default: "legacy"
- *         assets_version?: scalar|Param|null, // Default: null
- *     },
- *     enqueue?: bool|Param, // Enables integration with enqueue if set true. Allows resolve image caches in background by sending messages to MQ. // Default: false
- *     messenger?: bool|array{ // Enables integration with symfony/messenger if set true. Warmup image caches in background by sending messages to MQ.
- *         enabled?: bool|Param, // Default: false
- *     },
- *     templating?: bool|Param, // Enables integration with symfony/templating component // Default: true
- *     webp?: array{
- *         generate?: bool|Param, // Default: false
- *         quality?: int|Param, // Default: 100
- *         cache?: scalar|Param|null, // Default: null
- *         data_loader?: scalar|Param|null, // Default: null
- *         post_processors?: array<string, array<string, mixed>>,
- *     },
- * }
  * @psalm-type SentryConfig = array{
  *     dsn?: scalar|Param|null, // If this value is not provided, the SDK will try to read it from the SENTRY_DSN environment variable. If that variable also does not exist, the SDK will not send any events.
  *     register_error_listener?: bool|Param, // Default: true
@@ -2032,6 +1931,25 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         server?: scalar|Param|null, // Default: "http://www.plantuml.com/plantuml"
  *     },
  * }
+ * @psalm-type SurvosImgproxyConfig = array{
+ *     routes_enabled?: bool|Param, // Set false to manage this bundle's routes manually in your app. Bundles exposing sensitive routes (e.g. running console commands) should default this off. // Default: true
+ *     route_prefix?: scalar|Param|null, // URL prefix applied to all routes from this bundle. // Default: ""
+ *     locale_prefix?: bool|Param, // Prepend {_locale} (constrained to kernel.enabled_locales) to this bundle's route prefix, e.g. /{_locale}/f instead of /f -- for bundles whose routes are meant to be shared/bookmarked, so the URL itself carries the locale instead of a query param. // Default: false
+ *     host?: scalar|Param|null, // Default: "%env(default::IMGPROXY_HOST)%"
+ *     key?: scalar|Param|null, // Default: "%env(default::IMGPROXY_KEY)%"
+ *     salt?: scalar|Param|null, // Default: "%env(default::IMGPROXY_SALT)%"
+ *     presets?: array<string, array{ // Default: {"tiny":{"width":200,"height":200,"resize":"fit","quality":70,"format":"webp"},"thumb":{"width":400,"height":400,"resize":"fit","quality":80,"format":"webp"},"observe":{"width":512,"height":512,"resize":"fit","quality":80,"format":"webp"},"display":{"width":600,"height":400,"resize":"fit","quality":80,"format":"webp"},"archive":{"width":0,"height":0,"resize":"fit","quality":88,"format":"webp","strip_metadata":false}}
+ *         width?: int|Param,
+ *         height?: int|Param,
+ *         resize?: scalar|Param|null, // Default: "fit"
+ *         quality?: int|Param, // Default: null
+ *         format?: scalar|Param|null, // Default: null
+ *         strip_metadata?: bool|Param|null, // Default: null
+ *     }>,
+ * }
+ * @psalm-type SurvosDeploymentConfig = array{
+ *     enabled?: bool|Param, // Default: true
+ * }
  * @psalm-type ConfigType = array{
  *     imports?: ImportsConfig,
  *     parameters?: ParametersConfig,
@@ -2040,7 +1958,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     babdev_pagerfanta?: BabdevPagerfantaConfig,
  *     doctrine?: DoctrineConfig,
  *     doctrine_migrations?: DoctrineMigrationsConfig,
- *     liip_imagine?: LiipImagineConfig,
  *     monolog?: MonologConfig,
  *     security?: SecurityConfig,
  *     twig?: TwigConfig,
@@ -2049,6 +1966,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     twig_extra?: TwigExtraConfig,
  *     twig_component?: TwigComponentConfig,
  *     symfonycasts_sass?: SymfonycastsSassConfig,
+ *     survos_imgproxy?: SurvosImgproxyConfig,
  *     "when@dev"?: array{
  *         imports?: ImportsConfig,
  *         parameters?: ParametersConfig,
@@ -2057,7 +1975,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         babdev_pagerfanta?: BabdevPagerfantaConfig,
  *         doctrine?: DoctrineConfig,
  *         doctrine_migrations?: DoctrineMigrationsConfig,
- *         liip_imagine?: LiipImagineConfig,
  *         debug?: DebugConfig,
  *         maker?: MakerConfig,
  *         monolog?: MonologConfig,
@@ -2070,6 +1987,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         twig_component?: TwigComponentConfig,
  *         symfonycasts_sass?: SymfonycastsSassConfig,
  *         doctrine_diagram?: DoctrineDiagramConfig,
+ *         survos_imgproxy?: SurvosImgproxyConfig,
+ *         survos_deployment?: SurvosDeploymentConfig,
  *     },
  *     "when@prod"?: array{
  *         imports?: ImportsConfig,
@@ -2079,7 +1998,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         babdev_pagerfanta?: BabdevPagerfantaConfig,
  *         doctrine?: DoctrineConfig,
  *         doctrine_migrations?: DoctrineMigrationsConfig,
- *         liip_imagine?: LiipImagineConfig,
  *         sentry?: SentryConfig,
  *         monolog?: MonologConfig,
  *         security?: SecurityConfig,
@@ -2089,6 +2007,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         twig_extra?: TwigExtraConfig,
  *         twig_component?: TwigComponentConfig,
  *         symfonycasts_sass?: SymfonycastsSassConfig,
+ *         survos_imgproxy?: SurvosImgproxyConfig,
  *     },
  *     "when@staging"?: array{
  *         imports?: ImportsConfig,
@@ -2098,7 +2017,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         babdev_pagerfanta?: BabdevPagerfantaConfig,
  *         doctrine?: DoctrineConfig,
  *         doctrine_migrations?: DoctrineMigrationsConfig,
- *         liip_imagine?: LiipImagineConfig,
  *         sentry?: SentryConfig,
  *         monolog?: MonologConfig,
  *         security?: SecurityConfig,
@@ -2108,6 +2026,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         twig_extra?: TwigExtraConfig,
  *         twig_component?: TwigComponentConfig,
  *         symfonycasts_sass?: SymfonycastsSassConfig,
+ *         survos_imgproxy?: SurvosImgproxyConfig,
  *     },
  *     "when@test"?: array{
  *         imports?: ImportsConfig,
@@ -2117,7 +2036,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         babdev_pagerfanta?: BabdevPagerfantaConfig,
  *         doctrine?: DoctrineConfig,
  *         doctrine_migrations?: DoctrineMigrationsConfig,
- *         liip_imagine?: LiipImagineConfig,
  *         monolog?: MonologConfig,
  *         security?: SecurityConfig,
  *         twig?: TwigConfig,
@@ -2127,6 +2045,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         twig_extra?: TwigExtraConfig,
  *         twig_component?: TwigComponentConfig,
  *         symfonycasts_sass?: SymfonycastsSassConfig,
+ *         survos_imgproxy?: SurvosImgproxyConfig,
+ *         survos_deployment?: SurvosDeploymentConfig,
  *     },
  *     ...<string, ExtensionType|array{ // extra keys must follow the when@%env% pattern or match an extension alias
  *         imports?: ImportsConfig,

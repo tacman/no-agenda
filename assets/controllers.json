@@ -1,4 +1,12 @@
 {
-    "controllers": [],
+    "controllers": {
+        "@survos/imgproxy-bundle": {
+            "imgproxy": {
+                "enabled": true,
+                "fetch": "lazy",
+                "autoimport": []
+            }
+        }
+    },
     "entrypoints": []
 }

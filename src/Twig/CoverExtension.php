@@ -3,7 +3,7 @@
 namespace App\Twig;
 
 use App\Entity\Episode;
-use Liip\ImagineBundle\Service\FilterService;
+use Survos\ImgproxyBundle\Service\ImgproxyUrlBuilder;
 use Symfony\Bridge\Twig\Extension\AssetExtension;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -12,7 +12,7 @@ class CoverExtension extends AbstractExtension
 {
     public function __construct(
         private readonly AssetExtension $assetExtension,
-        private readonly FilterService $filterService,
+        private readonly ImgproxyUrlBuilder $imgproxyUrlBuilder,
     ) {}
 
     #[\Override]
@@ -25,11 +25,10 @@ class CoverExtension extends AbstractExtension
 
     public function episodeCover(Episode $episode, string $size = 'small'): string
     {
-        if ($episode->hasCover()) {
-            return $this->filterService->getUrlOfFilteredImage(sprintf('%s.png', $episode->getCode()), sprintf('cover_%s', $size));
+        if ($coverUri = $episode->getCoverUri()) {
+            return $this->imgproxyUrlBuilder->resizePreset($coverUri, $size);
         }
 
-//        return $this->assetExtension->getAssetUrl(sprintf('build/images/placeholder_%s.jpg', $size), 'app');
         return $this->assetExtension->getAssetUrl(sprintf('build/images/placeholder_%s.jpg', $size));
     }
 }

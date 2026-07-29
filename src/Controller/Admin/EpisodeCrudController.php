@@ -83,9 +83,7 @@ class EpisodeCrudController extends AbstractCrudController
                 ->setHelp('Data used for crawling and processing metadata related to the show.');
 
             yield UrlField::new('recordingUri');
-            yield UrlField::new('coverUri')
-                ->setTemplatePath('admin/field/cover_uri.html.twig');
-            yield TextField::new('coverPath');
+            yield UrlField::new('coverUri');
             yield UrlField::new('publicShownotesUri');
             yield UrlField::new('shownotesUri')
                 ->setTemplatePath('admin/field/shownotes_uri.html.twig');

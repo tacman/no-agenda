@@ -20,12 +20,10 @@ git clone git@github.com:tacman/no-agenda.git && cd no-agenda
 echo "DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db" >> .env.local
 echo "APP_STORAGE_PATH=/tmp/storage" >> .env.local
 cat .env.local
-mkdir /tmp/storage/covers -p
 composer install
 bin/console sass:build
 bin/console doctrine:schema:update --force
 bin/console doctrine:fixtures:load -n
-bin/console crawl --all cover
 symfony server:start -d
 symfony open:local
 ```
@@ -67,9 +65,6 @@ docker compose exec app bash
 
 # Load demo data
 docker compose exec app bin/console doctrine:fixtures:load
-
-# Create resized versions of the episode covers
-docker compose exec app bin/console refresh-cover-cache
 ```
 
 Or from the CLI in dev (using sqlite)
@@ -77,8 +72,12 @@ Or from the CLI in dev (using sqlite)
 ```bash
 bin/console d:sch:update --force
 bin/console doctrine:fixtures:load
-bin/console crawl --all cover
+bin/console crawl feed
 ```
+
+Episode covers are served on the fly via [imgproxy](https://imgproxy.net/) from
+the RSS feed's original image URL (see `IMGPROXY_HOST`/`IMGPROXY_KEY`/`IMGPROXY_SALT`
+and `CoverExtension`) -- there's no local download/resize step.
 
 ### Crawling
 
@@ -86,7 +85,6 @@ Crawling can be done in one of two ways: by manual execution or through the
 Messenger queue.
 
 Types of data to crawl:
-* cover (requires episode code)
 * duration (requires episode code)
 * feed
 * shownotes (requires episode code)

@@ -18,7 +18,6 @@ class CrawlingProcessor
 
     public static array $crawlerClasses = [
         'chapters' => EpisodeChaptersCrawler::class,
-        'cover' => EpisodeCoverCrawler::class,
         'duration' => EpisodeDurationCrawler::class,
         'feed' => FeedCrawler::class,
         'shownotes' => EpisodeShownotesCrawler::class,

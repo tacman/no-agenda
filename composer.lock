@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9845590a8bcdd1a8e14a83e5f5647035",
+    "content-hash": "32e5535cb0c8bd80137870ff92256b5b",
     "packages": [
         {
             "name": "api-platform/doctrine-common",
@@ -3151,68 +3151,6 @@
             "time": "2026-07-16T22:23:49+00:00"
         },
         {
-            "name": "imagine/imagine",
-            "version": "1.5.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-imagine/Imagine.git",
-                "reference": "dd57a4c290ff4d223d17bcd219dac9ac8bf1cc16"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-imagine/Imagine/zipball/dd57a4c290ff4d223d17bcd219dac9ac8bf1cc16",
-                "reference": "dd57a4c290ff4d223d17bcd219dac9ac8bf1cc16",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8 || ^5.7 || ^6.5 || ^7.5 || ^8.4 || ^9.3"
-            },
-            "suggest": {
-                "ext-exif": "to read EXIF metadata",
-                "ext-gd": "to use the GD implementation",
-                "ext-gmagick": "to use the Gmagick implementation",
-                "ext-imagick": "to use the Imagick implementation"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-develop": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Imagine\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bulat Shakirzyanov",
-                    "email": "mallluhuct@gmail.com",
-                    "homepage": "http://avalanche123.com"
-                }
-            ],
-            "description": "Image processing for PHP",
-            "homepage": "http://imagine.readthedocs.org/",
-            "keywords": [
-                "drawing",
-                "graphics",
-                "image manipulation",
-                "image processing"
-            ],
-            "support": {
-                "issues": "https://github.com/php-imagine/Imagine/issues",
-                "source": "https://github.com/php-imagine/Imagine/tree/1.5.4"
-            },
-            "time": "2026-06-04T10:05:48+00:00"
-        },
-        {
             "name": "jean85/pretty-package-versions",
             "version": "2.1.1",
             "source": {
@@ -3472,114 +3410,6 @@
                 }
             ],
             "time": "2025-10-11T18:13:12+00:00"
-        },
-        {
-            "name": "liip/imagine-bundle",
-            "version": "2.17.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/liip/LiipImagineBundle.git",
-                "reference": "69d2df3c6606495d1878fa190d6c3dc4bc5623b6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/69d2df3c6606495d1878fa190d6c3dc4bc5623b6",
-                "reference": "69d2df3c6606495d1878fa190d6c3dc4bc5623b6",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "imagine/imagine": "^1.3.2",
-                "php": "^8.0",
-                "symfony/dependency-injection": "^5.4|^6.4|^7.4|^8.0",
-                "symfony/deprecation-contracts": "^2.5 || ^3",
-                "symfony/filesystem": "^5.4|^6.4|^7.3|^8.0",
-                "symfony/finder": "^5.4|^6.4|^7.3|^8.0",
-                "symfony/framework-bundle": "^5.4|^6.4|^7.3|^8.0",
-                "symfony/mime": "^5.4|^6.4|^7.3|^8.0",
-                "symfony/options-resolver": "^5.4|^6.4|^7.3|^8.0",
-                "symfony/process": "^5.4|^6.4|^7.3|^8.0",
-                "twig/twig": "^1.44|^2.9|^3.0"
-            },
-            "require-dev": {
-                "amazonwebservices/aws-sdk-for-php": "^1.0",
-                "aws/aws-sdk-php": "^2.4|^3.0",
-                "doctrine/cache": "^1.11|^2.0",
-                "doctrine/persistence": "^1.3|^2.0",
-                "enqueue/enqueue-bundle": "^0.9|^0.10",
-                "ext-gd": "*",
-                "league/flysystem": "^1.0|^2.0|^3.0",
-                "phpstan/phpstan": "^1.10.0",
-                "psr/cache": "^1.0|^2.0|^3.0",
-                "psr/log": "^1.0",
-                "symfony/asset": "^5.4|^6.4|^7.3|^8.0",
-                "symfony/browser-kit": "^5.4|^6.4|^7.3|^8.0",
-                "symfony/cache": "^5.4|^6.4|^7.3|^8.0",
-                "symfony/console": "^5.4|^6.4|^7.3|^8.0",
-                "symfony/form": "^5.4|^6.4|^7.3|^8.0",
-                "symfony/messenger": "^5.4|^6.4|^7.3|^8.0",
-                "symfony/phpunit-bridge": "^7.3",
-                "symfony/runtime": "^5.4|^6.4|^7.3|^8.0",
-                "symfony/templating": "^5.4|^6.4|^7.3|^8.0",
-                "symfony/validator": "^5.4|^6.4|^7.3|^8.0",
-                "symfony/yaml": "^5.4|^6.4|^7.3|^8.0"
-            },
-            "suggest": {
-                "alcaeus/mongo-php-adapter": "required for mongodb components",
-                "amazonwebservices/aws-sdk-for-php": "required to use AWS version 1 cache resolver",
-                "aws/aws-sdk-php": "required to use AWS version 2/3 cache resolver",
-                "doctrine/mongodb-odm": "required to use mongodb-backed doctrine components",
-                "enqueue/enqueue-bundle": "^0.9 add if you like to process images in background",
-                "ext-exif": "required to read EXIF metadata from images",
-                "ext-gd": "required to use gd driver",
-                "ext-gmagick": "required to use gmagick driver",
-                "ext-imagick": "required to use imagick driver",
-                "ext-json": "required to read JSON manifest versioning",
-                "ext-mongodb": "required for mongodb components",
-                "league/flysystem": "required to use FlySystem data loader or cache resolver",
-                "monolog/monolog": "A psr/log compatible logger is required to enable logging",
-                "rokka/imagine-vips": "required to use 'vips' driver",
-                "symfony/asset": "If you want to use asset versioning",
-                "symfony/messenger": "If you like to process images in background",
-                "symfony/templating": "required to use deprecated Templating component instead of Twig"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "Liip\\ImagineBundle\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Liip and other contributors",
-                    "homepage": "https://github.com/liip/LiipImagineBundle/contributors"
-                }
-            ],
-            "description": "This bundle provides an image manipulation abstraction toolkit for Symfony-based projects.",
-            "homepage": "https://www.liip.ch",
-            "keywords": [
-                "bundle",
-                "image",
-                "imagine",
-                "liip",
-                "manipulation",
-                "photos",
-                "pictures",
-                "symfony",
-                "transformation"
-            ],
-            "support": {
-                "issues": "https://github.com/liip/LiipImagineBundle/issues",
-                "source": "https://github.com/liip/LiipImagineBundle/tree/2.17.1"
-            },
-            "time": "2026-01-06T09:34:48+00:00"
         },
         {
             "name": "minishlink/web-push",
@@ -5309,6 +5139,132 @@
                 }
             ],
             "time": "2026-07-16T10:28:45+00:00"
+        },
+        {
+            "name": "survos/imgproxy-bundle",
+            "version": "2.15.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/survos/imgproxy-bundle.git",
+                "reference": "276114684db2942828c5b426fb41b9961dd86a31"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/survos/imgproxy-bundle/zipball/276114684db2942828c5b426fb41b9961dd86a31",
+                "reference": "276114684db2942828c5b426fb41b9961dd86a31",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.5",
+                "survos/kit-bundle": "^2.5",
+                "symfony/config": "^8.1",
+                "symfony/console": "^8.1",
+                "symfony/dependency-injection": "^8.1",
+                "symfony/http-client": "^8.1",
+                "symfony/http-client-contracts": "^3.5",
+                "symfony/http-kernel": "^8.1",
+                "symfony/serializer": "^8.1",
+                "twig/twig": "^3.14"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^13.0",
+                "symfony/framework-bundle": "^8.1"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "symfony": {
+                    "require": "^8.1"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Survos\\ImgproxyBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Symfony bundle for signing and generating imgproxy URLs",
+            "keywords": [
+                "image",
+                "imgproxy",
+                "resize",
+                "symfony",
+                "symfony-ux",
+                "thumbnail",
+                "ux"
+            ],
+            "support": {
+                "issues": "https://github.com/survos/imgproxy-bundle/issues",
+                "source": "https://github.com/survos/imgproxy-bundle/tree/2.15.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/kbond",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-07-11T22:15:47+00:00"
+        },
+        {
+            "name": "survos/kit-bundle",
+            "version": "2.17.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/survos/kit-bundle.git",
+                "reference": "ebf2f745b2e591c0f673bcd9edaebb918e3e8c00"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/survos/kit-bundle/zipball/ebf2f745b2e591c0f673bcd9edaebb918e3e8c00",
+                "reference": "ebf2f745b2e591c0f673bcd9edaebb918e3e8c00",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.5",
+                "symfony/config": "^8.1",
+                "symfony/dependency-injection": "^8.1"
+            },
+            "require-dev": {
+                "doctrine/orm": "^3.0",
+                "symfony/asset-mapper": "^8.1",
+                "symfony/framework-bundle": "^8.1",
+                "symfony/twig-bundle": "^8.1"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Survos\\Kit\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Base classes and traits for consistent Survos bundle development — auto-registers twig namespaces, asset mapper paths, and doctrine mappings by convention",
+            "keywords": [
+                "base-class",
+                "bundle",
+                "symfony",
+                "traits"
+            ],
+            "support": {
+                "issues": "https://github.com/survos/kit-bundle/issues",
+                "source": "https://github.com/survos/kit-bundle/tree/2.17.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/kbond",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-07-23T11:04:17+00:00"
         },
         {
             "name": "symfony/amqp-messenger",
@@ -14437,6 +14393,67 @@
                 }
             ],
             "time": "2020-09-28T06:39:44+00:00"
+        },
+        {
+            "name": "survos/deployment-bundle",
+            "version": "2.15.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/survos/deployment-bundle.git",
+                "reference": "af63afdf15627c0134a197a9529019990fedced8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/survos/deployment-bundle/zipball/af63afdf15627c0134a197a9529019990fedced8",
+                "reference": "af63afdf15627c0134a197a9529019990fedced8",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.5",
+                "survos/kit-bundle": "^2.5",
+                "symfony/config": "^8.1",
+                "symfony/console": "^8.1",
+                "symfony/dependency-injection": "^8.1",
+                "symfony/form": "^8.1",
+                "symfony/http-kernel": "^8.1",
+                "symfony/process": "^8.1",
+                "twig/twig": "^3.4"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^2.0",
+                "symfony/browser-kit": "^8.1",
+                "symfony/framework-bundle": "^8.1",
+                "symfony/phpunit-bridge": "^8.1",
+                "symfony/twig-bundle": "^8.1",
+                "symfony/var-dumper": "^8.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Survos\\DeploymentBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Tools for deploying Survos projects to dokku",
+            "keywords": [
+                "dev",
+                "symfony",
+                "symfony-ux"
+            ],
+            "support": {
+                "issues": "https://github.com/survos/deployment-bundle/issues",
+                "source": "https://github.com/survos/deployment-bundle/tree/2.15.8"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/kbond",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-07-14T20:43:15+00:00"
         },
         {
             "name": "symfony/browser-kit",

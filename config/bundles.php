@@ -7,7 +7,6 @@ return [
     Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
     Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
     EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle::class => ['all' => true],
-    Liip\ImagineBundle\LiipImagineBundle::class => ['all' => true],
     Sentry\SentryBundle\SentryBundle::class => ['prod' => true, 'staging' => true],
     Symfony\Bundle\DebugBundle\DebugBundle::class => ['dev' => true],
     Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
@@ -21,4 +20,7 @@ return [
     Symfony\UX\TwigComponent\TwigComponentBundle::class => ['all' => true],
     Symfonycasts\SassBundle\SymfonycastsSassBundle::class => ['all' => true],
     Jawira\DoctrineDiagramBundle\DoctrineDiagramBundle::class => ['dev' => true],
+    Survos\Kit\SurvosKitBundle::class => ['all' => true],
+    Survos\ImgproxyBundle\SurvosImgproxyBundle::class => ['all' => true],
+    Survos\DeploymentBundle\SurvosDeploymentBundle::class => ['dev' => true, 'test' => true],
 ];

@@ -27,7 +27,7 @@ class CrawlingScheduleProvider implements ScheduleProviderInterface
             ->with(
                 // Crawl feed and live item
                 RecurringMessage::every(
-                    '5 minutes',
+                    '2 hours',
                     new Envelope(new Crawl('feed', null), [new BusNameStamp('crawling.bus')])
                 ),
 

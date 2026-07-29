@@ -1,0 +1,55 @@
+survos_imgproxy:
+    host: '%env(IMGPROXY_HOST)%'
+    key: '%env(IMGPROXY_KEY)%'
+    salt: '%env(IMGPROXY_SALT)%'
+    # Restated verbatim from SurvosImgproxyBundle::DEFAULT_PRESETS -- this array replaces the
+    # bundle default wholesale rather than merging with it, so every preset in use (episode
+    # covers via CoverExtension) has to be listed here too.
+    presets:
+        tiny:
+            width: 200
+            height: 200
+            resize: fit
+            quality: 70
+            format: webp
+        thumb:
+            width: 400
+            height: 400
+            resize: fit
+            quality: 80
+            format: webp
+        observe:
+            width: 512
+            height: 512
+            resize: fit
+            quality: 80
+            format: webp
+        display:
+            width: 600
+            height: 400
+            resize: fit
+            quality: 80
+            format: webp
+        archive:
+            width: 0
+            height: 0
+            resize: fit
+            quality: 88
+            format: webp
+            strip_metadata: false
+
+        # Episode cover art sizes -- matches the old liip_imagine cover_small/cover_large filters
+        # (episode_cover('small'|'large') in CoverExtension), fed directly from the RSS feed's
+        # itunes:image URL instead of a locally downloaded/resized copy.
+        small:
+            width: 512
+            height: 512
+            resize: fit
+            quality: 82
+            format: webp
+        large:
+            width: 1024
+            height: 1024
+            resize: fit
+            quality: 85
+            format: webp
