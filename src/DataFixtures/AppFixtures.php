@@ -12,13 +12,15 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
-    public function __construct(private UserPasswordHasherInterface $hasher)
-    {
+    public function __construct(
+        private UserPasswordHasherInterface $hasher,
+        private string $appStoragePath,
+    ) {
     }
 
     public function load(ObjectManager $manager): void
     {
-        $storagePath = $_SERVER['APP_STORAGE_PATH'];
+        $storagePath = $this->appStoragePath;
 
         foreach ($this->loadUsers() as [$userIdentifier, $plainPassword, $roles]) {
             $user = (new User())

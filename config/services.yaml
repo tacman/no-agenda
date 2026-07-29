@@ -5,6 +5,7 @@ services:
         bind:
             $crawlers: !tagged_locator crawler
             $httpClient: '@http_client'
+            $appStoragePath: '%env(resolve:APP_STORAGE_PATH)%'
 
     App\:
         resource: '../src/'

@@ -14,6 +14,7 @@ class EpisodeTranscriptCrawler implements EpisodeFileCrawlerInterface
     public function __construct(
         private EntityManagerInterface $entityManager,
         private FileDownloader $fileDownloader,
+        private string $appStoragePath,
     ) {
         $this->logger = new NullLogger();
     }
@@ -26,7 +27,7 @@ class EpisodeTranscriptCrawler implements EpisodeFileCrawlerInterface
             return null;
         }
 
-        $path = sprintf('%s/transcripts/%s.srt', $_SERVER['APP_STORAGE_PATH'], $episode->getCode());
+        $path = sprintf('%s/transcripts/%s.srt', $this->appStoragePath, $episode->getCode());
         $lastModifiedAt = $this->fileDownloader->download($episode->getTranscriptUri(), $path, $ifModifiedSince);
 
         if ($path !== $episode->getTranscriptPath()) {

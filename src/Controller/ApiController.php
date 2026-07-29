@@ -15,12 +15,13 @@ class ApiController extends AbstractController
 {
     public function __construct(
         private readonly NotificationSubscriptionRepository $notificationSubscriptionRepository,
+        private readonly string $appStoragePath,
     ) {}
 
     #[Route('/livestream')]
     public function livestreamInfo(): Response
     {
-        $livestreamInfoPath = sprintf('%s/livestream_info.json', $_SERVER['APP_STORAGE_PATH']);
+        $livestreamInfoPath = sprintf('%s/livestream_info.json', $this->appStoragePath);
 
         if (!file_exists($livestreamInfoPath)) {
             return new Response(null, Response::HTTP_NO_CONTENT);

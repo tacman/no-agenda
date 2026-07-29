@@ -17,6 +17,7 @@ class EpisodeShownotesCrawler implements EpisodeFileCrawlerInterface
         private EntityManagerInterface $entityManager,
         private HttpClientInterface $httpClient,
         private FileDownloader $fileDownloader,
+        private string $appStoragePath,
     ) {
         $this->logger = new NullLogger();
     }
@@ -50,7 +51,7 @@ class EpisodeShownotesCrawler implements EpisodeFileCrawlerInterface
             throw new FileDownloadException(sprintf('Shownotes URI for episode %s could not be found.', $episode->getCode()));
         }
 
-        $path = sprintf('%s/shownotes/%s.xml', $_SERVER['APP_STORAGE_PATH'], $episode->getCode());
+        $path = sprintf('%s/shownotes/%s.xml', $this->appStoragePath, $episode->getCode());
         $lastModifiedAt = $this->fileDownloader->download($episode->getShownotesUri(), $path, $ifModifiedSince);
 
         if ($path !== $episode->getShownotesPath()) {

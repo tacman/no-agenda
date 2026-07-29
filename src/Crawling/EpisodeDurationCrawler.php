@@ -16,6 +16,7 @@ class EpisodeDurationCrawler implements EpisodeFileCrawlerInterface
     public function __construct(
         private EntityManagerInterface $entityManager,
         private FileDownloader $fileDownloader,
+        private string $appStoragePath,
     ) {
         $this->logger = new NullLogger();
     }
@@ -28,7 +29,7 @@ class EpisodeDurationCrawler implements EpisodeFileCrawlerInterface
             return null;
         }
 
-        $path = sprintf('%s/episodes/%s.mp3', $_SERVER['APP_STORAGE_PATH'], $episode->getCode());
+        $path = sprintf('%s/episodes/%s.mp3', $this->appStoragePath, $episode->getCode());
         $lastModifiedAt = $this->fileDownloader->download($episode->getRecordingUri(), $path, $ifModifiedSince);
 
         // The file is not downloaded if there are no changes

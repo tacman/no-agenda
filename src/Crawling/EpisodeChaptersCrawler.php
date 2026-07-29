@@ -14,6 +14,7 @@ class EpisodeChaptersCrawler implements EpisodeFileCrawlerInterface
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly FileDownloader $fileDownloader,
+        private readonly string $appStoragePath,
     ) {
         $this->logger = new NullLogger();
     }
@@ -26,7 +27,7 @@ class EpisodeChaptersCrawler implements EpisodeFileCrawlerInterface
             return null;
         }
 
-        $path = sprintf('%s/chapters/%s.json', $_SERVER['APP_STORAGE_PATH'], $episode->getCode());
+        $path = sprintf('%s/chapters/%s.json', $this->appStoragePath, $episode->getCode());
         $lastModifiedAt = $this->fileDownloader->download($episode->getChaptersUri(), $path, $ifModifiedSince);
 
         if ($path !== $episode->getChaptersPath()) {
