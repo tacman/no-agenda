@@ -31,18 +31,34 @@ class FeedCrawler implements CrawlerInterface
 
     public function crawl(): void
     {
-        if (null === $entries = $this->crawlFeed()) {
+        if (null === $result = $this->crawlFeed()) {
             return;
         }
 
-        $earliestPublishDate = min(array_column($entries, 'publishedAt'));
+        [$entries, $lastModifiedAt] = $result;
 
-        $episodeRepository = $this->entityManager->getRepository(Episode::class);
-        $episodes = $episodeRepository->findEpisodesSince($earliestPublishDate);
+        if ($entries) {
+            $earliestPublishDate = min(array_column($entries, 'publishedAt'));
 
-        foreach ($entries as $entry) {
-            $this->handleEntry($entry, $episodes[$entry['code']] ?? null);
+            $episodeRepository = $this->entityManager->getRepository(Episode::class);
+            $episodes = $episodeRepository->findEpisodesSince($earliestPublishDate);
+
+            foreach ($entries as $entry) {
+                $this->handleEntry($entry, $episodes[$entry['code']] ?? null);
+            }
         }
+
+        // Only advance the "last modified" checkpoint once the entries above are queued for
+        // persistence (CrawlCommand::postCrawl() flushes right after crawl() returns). Caching
+        // it earlier -- e.g. right after the HTTP fetch -- means an interruption between the
+        // fetch and the eventual flush (a killed dokku run, a worker restart) silently drops
+        // every entry while the cache still reports the feed as fully processed, so the next
+        // run gets a 304 and skips re-fetching entirely. Better to worst-case re-parse a feed
+        // we already handled (handleEntry() is idempotent, it diffs crawlerOutput) than to
+        // worst-case skip one we never actually saved.
+        $lastModifiedCache = $this->cache->getItem('feed.last_modified');
+        $lastModifiedCache->set($lastModifiedAt);
+        $this->cache->save($lastModifiedCache);
     }
 
     private function crawlFeed(): ?array
@@ -73,9 +89,6 @@ class FeedCrawler implements CrawlerInterface
         $lastModifiedAt = $response->getHeaders()['last-modified'][0];
 
         $this->logger->debug(sprintf('Feed has been changed. Modified at %s.', $lastModifiedAt));
-
-        $lastModifiedCache->set($lastModifiedAt);
-        $this->cache->save($lastModifiedCache);
 
         $source = $response->getContent();
 
@@ -122,7 +135,7 @@ class FeedCrawler implements CrawlerInterface
             ];
         }
 
-        return array_reverse($entries);
+        return [array_reverse($entries), $lastModifiedAt];
     }
 
     private function handleEntry(array $entry, ?Episode $episode): void
