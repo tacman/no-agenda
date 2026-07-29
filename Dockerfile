@@ -1,4 +1,4 @@
-FROM node:20.10-alpine AS assets
+FROM node:24-alpine AS assets
 
 WORKDIR /srv/app
 
@@ -24,7 +24,7 @@ RUN chmod +x /usr/local/bin/docker-entrypoint
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["npm", "run", "watch"]
 
-FROM php:8.2-fpm-bookworm AS app
+FROM php:8.5-fpm-trixie AS app
 
 ARG UID=3302
 ARG GID=3302
@@ -93,6 +93,10 @@ RUN chmod +x /usr/local/bin/app-entrypoint
 
 COPY docker/php-entrypoint.bash /usr/local/bin/app-php-entrypoint
 RUN chmod +x /usr/local/bin/app-php-entrypoint
+
+# The deployment runs nginx and PHP-FPM in the same pod. Trust nginx so
+# Symfony can use the X-Forwarded-* headers that originated at Traefik.
+ENV TRUSTED_PROXIES=127.0.0.1
 
 ENTRYPOINT ["app-entrypoint"]
 CMD ["php-fpm"]

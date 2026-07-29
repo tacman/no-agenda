@@ -49,7 +49,7 @@ docker compose up -d
 APP_TAG=latest docker compose up -d
 
 # or start the expanded configuration with extra services
-docker compose -f docker-compose.yaml -f docker-compose.services.yaml up -d
+docker compose -f compose.yaml -f compose.services.yaml up -d
 
 # View container logs
 docker compose logs -f
@@ -86,7 +86,6 @@ Crawling can be done in one of two ways: by manual execution or through the
 Messenger queue.
 
 Types of data to crawl:
-* bat_signal
 * cover (requires episode code)
 * duration (requires episode code)
 * feed
@@ -112,7 +111,7 @@ crawling jobs can schedule new jobs, like re-downloading a resource or
 crawling the resources for a new episode.
 
 There is a separate service defined for the
-messenger in the `docker-compose.services.yaml` file, but it's still possible
+messenger in the `compose.services.yaml` file, but it's still possible
 to manually run the messenger queue. Note that the messenger needs the ability
 to handle large files so there's a separate image with an increased memory
 limit specifically for crawling.

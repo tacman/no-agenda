@@ -1,6 +1,13 @@
-name: Publish Docker Images
+name: Build and Publish Docker Images
 
-on: push
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  packages: write
 
 jobs:
   publish-images:
@@ -10,32 +17,37 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       -
         name: Extract Branch Name
         shell: bash
         run: |
           APP_TAG=${GITHUB_REF#refs/heads/}
+          # Docker tags cannot contain slashes. Keep branch names readable while
+          # making feature/update branches safe for GHCR tags.
+          APP_TAG=${APP_TAG//\//-}
           if [[ "$APP_TAG" == 'production' ]]; then
-            echo '::set-output name=APP_TAG::latest'
+            echo 'APP_TAG=latest' >> "$GITHUB_OUTPUT"
           else
-            echo "::set-output name=APP_TAG::$APP_TAG"
+            echo "APP_TAG=$APP_TAG" >> "$GITHUB_OUTPUT"
           fi
         id: extract-branch
       -
         name: Build Images
         run: |
           export APP_TAG=${{ steps.extract-branch.outputs.APP_TAG }}
-          docker-compose -f docker-compose.yaml -f docker-compose.services.yaml build --build-arg GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+          docker compose -f compose.yaml -f compose.services.yaml build --build-arg GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
       -
         name: Login to GitHub Packages
-        uses: docker/login-action@v1
+        if: github.event_name == 'push'
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       -
         name: Push Images
+        if: github.event_name == 'push'
         run: |
           export APP_TAG=${{ steps.extract-branch.outputs.APP_TAG }}
-          docker-compose -f docker-compose.yaml -f docker-compose.services.yaml push
+          docker compose -f compose.yaml -f compose.services.yaml push
