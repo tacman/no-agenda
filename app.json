@@ -1,0 +1,40 @@
+{
+    "name": "no-agenda",
+    "description": "Dokku app for no-agenda",
+    "keywords": [
+        "php",
+        "symfony"
+    ],
+    "repository": "https://github.com/tacman/no-agenda",
+    "scripts": {
+        "dokku": {
+            "predeploy": "bin/console importmap:install && bin/console asset-map:compile && bin/console  secrets:decrypt-to-local --force && bin/console doctrine:migrations:migrate -n --allow-no-migration && chown -R herokuishuser:herokuishuser /app/var",
+            "postdeploy": "bin/console about"
+        }
+    },
+    "env": {
+        "SECRET_TOKEN": {
+            "description": "A secret key for verifying the integrity of signed cookies.",
+            "value": "secret"
+        },
+        "WEB_CONCURRENCY": {
+            "description": "The number of web processes to run.",
+            "value": "5"
+        },
+        "APP_ENV": {
+            "description": "Symfony environment.",
+            "value": "prod"
+        },
+        "APP_DEBUG": {
+            "description": "Symfony debug flag.",
+            "value": "0"
+        }
+    },
+    "image": "gliderlabs/herokuish",
+    "addons": [],
+    "buildpacks": [
+        {
+            "url": "https://github.com/heroku/heroku-buildpack-php.git"
+        }
+    ]
+}
