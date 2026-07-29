@@ -13,6 +13,7 @@
         "ext-imagick": "*",
         "ext-json": "*",
         "ext-libxml": "*",
+        "ext-pdo_sqlite": "*",
         "ext-simplexml": "*",
         "api-platform/doctrine-orm": "^4.1",
         "api-platform/symfony": "^4.1",

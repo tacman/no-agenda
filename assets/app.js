@@ -11,9 +11,6 @@ import './scripts/swup.js';
 // Include web components
 import '@octopodcasting/player.js';
 
-// Include CSS
-import './app.scss';
-
 // Include images
 import './images/adam-curry.jpeg';
 import './images/app-icon.png';
