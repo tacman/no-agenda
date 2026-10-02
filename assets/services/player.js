@@ -1,4 +1,5 @@
-// import swup from '../scripts/swup.js';
+// Application service loaded as a native ES module by AssetMapper.
+import swup from '../scripts/swup.js';
 import naSettings from './settings.js';
 
 class Player {

@@ -1,0 +1,75 @@
+.about-row {
+  max-width: 1072px;
+  width: 87.5vw;
+  margin: 0 auto;
+}
+.about-row .about-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.about-row .about-menu a {
+  padding: 6px 8px;
+  background-color: var(--accent-1);
+  border-radius: 4px;
+  text-decoration: none;
+}
+.about-row .about-menu a:active, .about-row .about-menu a:hover {
+  background-color: var(--accent-2);
+}
+.about-row .about-menu a.active {
+  background-color: var(--accent-2);
+}
+.about-row .about-menu a.active:active, .about-row .about-menu a.active:hover {
+  background-color: var(--accent-3);
+}
+.about-row .about-menu .title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 1.3em;
+}
+@media screen and (min-width: 992px) {
+  .about-row .about-menu .title {
+    display: none;
+  }
+}
+.about-row .about-menu .title:hover {
+  color: var(--highlight-color);
+}
+.about-row .about-menu .menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s;
+}
+@media screen and (min-width: 992px) {
+  .about-row .about-menu .menu {
+    max-height: none !important;
+  }
+}
+.about-row .about-menu .spacer {
+  height: 16px;
+}
+@media screen and (max-width: 991.98px) {
+  .about-row {
+    margin-top: 24px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .about-row {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    margin: 24px auto;
+  }
+  .about-row .about-menu {
+    padding-top: 5em;
+    width: 25%;
+  }
+  .about-row .about-content {
+    width: 75%;
+  }
+}

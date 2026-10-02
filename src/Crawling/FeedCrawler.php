@@ -106,7 +106,7 @@ class FeedCrawler implements CrawlerInterface
 
         /** @var RssEntry|PodcastEntry $feedItem */
         foreach ($feed as $feedItem) {
-            $titleParts = explode(' ', $feedItem->getTitle(), 2);
+            $titleParts = explode(' ', trim($feedItem->getTitle()), 2);
 
             if (count($titleParts) < 2) {
                 $this->logger->emergency(sprintf('Failed to parse episode title: %s', $feedItem->getTitle()));
@@ -126,7 +126,7 @@ class FeedCrawler implements CrawlerInterface
             $entries[] = [
                 'code' => $code,
                 'name' => $name,
-                'author' => $feedItem->getCastAuthor(),
+                'author' => trim($feedItem->getCastAuthor()),
                 'publishedAt' => $feedItem->getDateCreated(),
                 'chaptersUri' => $chaptersUri,
                 'coverUri' => $feedItem->getItunesImage(),

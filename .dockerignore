@@ -1,8 +1,12 @@
 /bin/.phpunit/
 /docker/storage/
-/node_modules/
-/public/build/
 /public/bundles/
 /public/media/
 /var/
 /vendor/
+/.git/
+/.env.local
+/.env.*.local
+/work/
+/assets/vendor/
+/public/assets/

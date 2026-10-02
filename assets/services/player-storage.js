@@ -1,3 +1,4 @@
+// Application service loaded as a native ES module by AssetMapper.
 import naPlayer from './player.js';
 import naSettings from './settings.js';
 import naStorage from './storage.js';

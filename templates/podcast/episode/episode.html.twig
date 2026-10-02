@@ -90,9 +90,9 @@
                 >
                   {{ chapter.startTime|prettyTimestamp }}
                 </div>
-                <div class="chapter-title">
+                <button type="button" class="chapter-title">
                   {{ chapter.title }}
-                </div>
+                </button>
                 {% if chapter.url|default(null) %}
                   <a href="{{ chapter.url }}" class="chapter-link">
                     <span class="btn-icon fa-solid fa-external-link fa-fw" aria-hidden="true"></span>

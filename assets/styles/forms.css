@@ -1,0 +1,46 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 400px;
+  width: 75%;
+}
+.form > * {
+  margin: 0;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.form-input input[type=email],
+.form-input input[type=password],
+.form-input input[type=text] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--accent-1);
+  border-radius: 4px;
+}
+
+.form-timestamp .input {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.form-timestamp .input input {
+  max-width: 150px;
+}
+.form-timestamp .input .btn {
+  align-self: stretch;
+}
+.form-timestamp .buttons {
+  display: flex;
+  gap: 8px;
+}

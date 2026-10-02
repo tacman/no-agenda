@@ -1,3 +1,4 @@
+// Native ES module entry for the AssetMapper pipeline.
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {

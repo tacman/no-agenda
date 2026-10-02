@@ -8,7 +8,7 @@ permissions:
 env:
   APP_ENV: test
   APP_STORAGE_PATH: "${{ github.workspace }}/tests/fixtures"
-  DATABASE_URL: mysql://dudenamedben:dudettenamedbernadette@127.0.0.1:3306/noagenda?serverVersion=8
+  DATABASE_URL: postgresql://no_agenda:no_agenda@127.0.0.1:5432/no_agenda?serverVersion=18&charset=utf8
   SYMFONY_DEPRECATIONS_HELPER: disabled
 
 jobs:
@@ -20,16 +20,15 @@ jobs:
         php-version: ['8.5']
     services:
       database:
-        image: mysql:8.0
+        image: postgres:18
         env:
-          MYSQL_ROOT_PASSWORD: InTheMorning
-          MYSQL_DATABASE: noagenda_test
-          MYSQL_USER: dudenamedben
-          MYSQL_PASSWORD: dudettenamedbernadette
+          POSTGRES_DB: no_agenda_test
+          POSTGRES_USER: no_agenda
+          POSTGRES_PASSWORD: no_agenda
         ports:
-          - 3306:3306
+          - 5432:5432
         options: >-
-          --health-cmd "mysqladmin ping -h 127.0.0.1 -uroot -pInTheMorning"
+          --health-cmd "pg_isready -U no_agenda -d no_agenda_test"
           --health-interval 5s
           --health-timeout 5s
           --health-retries 20
@@ -42,7 +41,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          extensions: imagick
+          extensions: imagick, pdo_pgsql
           tools: composer:v2
       -
         name: Set Composer cache directory
@@ -65,20 +64,16 @@ jobs:
           bin/console messenger:setup-transports
           bin/console doctrine:fixtures:load --no-interaction
       -
-        name: Set up Node
+        name: Compile AssetMapper assets
+        run: bin/console asset-map:compile
+      -
+        name: Run PHP tests
+        run: vendor/bin/phpunit
+      -
+        name: Set up Node for native JavaScript tests
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
       -
-        name: Install NPM dependencies
-        run: npm ci
-      -
-        name: Build assets
-        run: npm run build
-      -
-        name: Run PHP tests
-        run: bin/phpunit -v
-      -
-        name: Run Node tests
-        run: npm run test
+        name: Run JavaScript tests (no npm)
+        run: node --test assets/tests/*.test.js

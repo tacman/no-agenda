@@ -13,113 +13,90 @@ this application has a built-in crawler to fetch data from different sources.
 To control the flow of crawling jobs the application uses a messenger queue
 wich requires to be run separately from the main application.
 
-## Local installation (with Symfony CLI)
+## Local development (PHP 8.5, PostgreSQL, Symfony CLI)
+
+Copy the database connection details for your PostgreSQL instance into `.env.local`:
+
+```dotenv
+DATABASE_URL="postgresql://no_agenda:ChangeMe@127.0.0.1:5432/no_agenda?serverVersion=18&charset=utf8"
+APP_STORAGE_PATH="%kernel.project_dir%/var/storage"
+APP_SECRET="replace-with-a-random-local-secret"
+MASTODON_PUBLISH=0
+MAILER_DSN=null://null
+```
 
 ```bash
-git clone git@github.com:tacman/no-agenda.git && cd no-agenda
-echo "DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db" >> .env.local
-echo "APP_STORAGE_PATH=/tmp/storage" >> .env.local
-cat .env.local
 composer install
-bin/console sass:build
-bin/console doctrine:schema:update --force
-bin/console doctrine:fixtures:load -n
-symfony server:start -d
-symfony open:local
-```
-
-bin/console doctrine:fixtures:load -n
-
-## Docker Installation
-
-You need [Docker](https://www.docker.com/) to run this application. For more
-information on managing the application, see the [Symfony 5.4 documentation](https://symfony.com/doc/5.4/index.html).
-
-See `.env` for configuration options (create `.env.local` to override options).
-
-To initialize the application, simply start it with Docker Compose:
-
-```bash
-# Start the Docker project with locally built containers
-docker compose up -d
-
-# or start with production containers from the web
-APP_TAG=latest docker compose up -d
-
-# or start the expanded configuration with extra services
-docker compose -f compose.yaml -f compose.services.yaml up -d
-
-# View container logs
-docker compose logs -f
-```
-
-After a short setup, the application should be running on [http://localhost:8033](http://localhost:8033).
-
-## CLI Commands
-
-Useful commands:
-
-```bash
-# Start a Terminal session inside the main Docker container
-docker compose exec app bash
-
-# Load demo data
-docker compose exec app bin/console doctrine:fixtures:load
-```
-
-Or from the CLI in dev (using sqlite)
-
-```bash
-bin/console d:sch:update --force
-bin/console doctrine:fixtures:load
+bin/console doctrine:database:create --if-not-exists
+bin/console doctrine:migrations:migrate -n
+bin/console messenger:setup-transports
 bin/console crawl feed
+symfony server:start -d
 ```
 
-Episode covers are served on the fly via [imgproxy](https://imgproxy.net/) from
-the RSS feed's original image URL (see `IMGPROXY_HOST`/`IMGPROXY_KEY`/`IMGPROXY_SALT`
-and `CoverExtension`) -- there's no local download/resize step.
+The PostgreSQL baseline is in `migrations/postgresql/`. The older MySQL migrations
+remain in `migrations/` for historical reference and are not executed.
 
-### Crawling
+### Assets
 
-Crawling can be done in one of two ways: by manual execution or through the
-Messenger queue.
+AssetMapper serves native CSS and JavaScript ES modules. There is one Stimulus
+entrypoint, `assets/stimulus_bootstrap.js`. No npm, Webpack, Encore, or Sass build
+is needed. JavaScript dependencies are pinned in `importmap.php`; install them
+with `bin/console importmap:install`. The pinned Octopod player distribution lives
+in `assets/lib/octopod/` because its original dependency was a Git revision.
 
-Types of data to crawl:
-* duration (requires episode code)
-* feed
-* shownotes (requires episode code)
-* transcript (requires episode code)
-* youtube
+`bin/console assets:build` generates the web manifest and service worker using
+AssetMapper URLs. For production, run `bin/console asset-map:compile` afterward.
+Do not retain compiled `public/assets/` files during development: they override
+live asset updates. Styles live in `assets/styles/`, with shared theme variables
+in `theme.css` and one file per component.
+
+Episode artwork uses the original feed URLs. The imgproxy bundle remains
+available for a future signed-proxy configuration.
+
+### Search
+
+`/search` uses `survos/search-bundle`, `#[Field]` metadata on `Episode`, and the
+Doctrine adapter against PostgreSQL. It searches episode numbers, titles, and
+authors, with duration filtering and sorting. Transcript content indexing and
+vector search are not enabled yet. Only published episodes appear.
+
+### Data
 
 ```bash
-# Crawl directly from the command line
-docker compose exec app bin/console crawl <data>
-docker compose exec app bin/console crawl <data> --episode <code>
-
-# Add a crawling job to the messenger queue
-docker compose exec app bin/console enqueue <data>
-docker compose exec app bin/console enqueue <data> --episode <code>
+bin/console crawl feed
+bin/console crawl shownotes --all
+bin/console crawl transcript --all
+bin/console crawl chapters --all
 ```
 
-### Messenger Queue
+The current upstream RSS feed is a rolling window, not the full historical
+archive. Missing upstream files are logged by the crawlers. `prepare --all`
+publishes unpublished episodes and may download audio to calculate durations.
+Keep Mastodon, mail, and push publishing disabled for local archive imports.
 
-While the messenger queue is currently only used for crawling jobs, it's
-important to always have the queue running in a live environment because
-crawling jobs can schedule new jobs, like re-downloading a resource or
-crawling the resources for a new episode.
+### Docker
 
-There is a separate service defined for the
-messenger in the `compose.services.yaml` file, but it's still possible
-to manually run the messenger queue. Note that the messenger needs the ability
-to handle large files so there's a separate image with an increased memory
-limit specifically for crawling.
+The Dockerfile builds PHP/AssetMapper and nginx images. Compose uses PostgreSQL
+and has no separate Node asset service. Start with `docker compose up -d --build`.
+The optional `compose.services.yaml` adds a Messenger worker. This fork uses the
+current entity model and PostgreSQL migrations rather than upstream's MySQL DDL.
+
+### Tests
+
+Create a separate test database (Doctrine appends `_test`) and configure its
+connection in `.env.test.local` if needed:
 
 ```bash
-docker compose exec app bin/console messenger:consume crawler
+bin/console doctrine:database:create --env=test --if-not-exists
+bin/console doctrine:migrations:migrate --env=test -n
+bin/console doctrine:fixtures:load --env=test -n
+vendor/bin/phpunit
+node --test assets/tests/*.test.js
 ```
 
-See the [Symfony Messenger documentation](https://symfony.com/doc/4.4/messenger.html)
-for information on the messenger queue.
+The JavaScript tests use Node's built-in runner and the AssetMapper-installed
+Luxon module. Node is only needed for tests, not to build or serve the site.
 
 ## Database Entities
 
@@ -134,24 +111,3 @@ npx web-push generate-vapid-keys
 ```
 
 Add the keys to your `.env.local` file.
-
-## Testing
-
-### PHP
-
-To execute the PHP/Symfony unit tests run:
-```bash
-php bin/phpunit
-```
-
-### JavaScript
-
-To execute the JavaScript unit tests run:
-```bash
-docker exec -t noagenda_assets_1 npm run test
-```
-
-You can also have the test run automatically when a file changes while developing by running:
-```bash
-docker exec -t noagenda_assets_1 npm run test-watch
-```

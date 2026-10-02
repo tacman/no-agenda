@@ -1,0 +1,44 @@
+.chat {
+  z-index: 34;
+  margin-bottom: 0;
+}
+.chat iframe {
+  height: 100vh;
+}
+@media screen and (max-width: 767.98px) {
+  .chat iframe {
+    border-left: 0;
+    border-right: 0;
+    border-top: 1px solid var(--accent-1);
+    border-bottom: 0;
+  }
+  .chat .section-content {
+    width: 100vw;
+    margin: 0;
+  }
+}
+@media screen and (min-width: 768px) {
+  .chat iframe {
+    border: 1px solid var(--accent-1);
+    border-bottom: 0;
+  }
+}
+
+@media screen and (max-width: 767.98px) {
+  body.body-player .chat iframe {
+    height: calc(100vh - 16px + 68px + 16px);
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 991.98px) {
+  body.body-player .chat iframe {
+    height: calc(100vh - 168px);
+  }
+}
+@media screen and (min-width: 992px) {
+  body.body-player .chat iframe {
+    height: calc(100vh - 200px);
+  }
+  body.body-player-cover-expanded .chat iframe {
+    height: calc(100vh - 360px);
+  }
+}

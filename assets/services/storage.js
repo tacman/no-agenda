@@ -1,3 +1,4 @@
+// Application service loaded as a native ES module by AssetMapper.
 import {openDB} from 'idb';
 
 class Database {

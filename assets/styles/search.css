@@ -1,0 +1,36 @@
+.episode-search { width: 87.5vw; max-width: 1072px; margin: 0 auto; }
+.episode-search .section-content { width: 100%; }
+.search-episode { display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--accent-1); }
+.search-episode img { width: 120px; height: 120px; object-fit: cover; border-radius: 6px; }
+.search-episode h2 { font-size: 1.2rem; margin: 0 0 .5rem; }
+.search-episode p { margin: .25rem 0; }
+@media (max-width: 575.98px) {
+  .search-episode img { width: 76px; height: 76px; }
+}
+.episode-search {
+  --ux-search-color-text: var(--text-color);
+  --ux-search-color-text-soft: var(--highlight-color);
+  --ux-search-color-background: var(--bg-color);
+  --ux-search-color-border: var(--accent-2);
+  --ux-search-color-border-soft: var(--accent-1);
+  --ux-search-color-primary: var(--primary);
+  --ux-search-color-secondary: var(--accent-1);
+  --ux-search-rounded-md: 6px;
+}
+.search-controls { display: flex; align-items: end; flex-wrap: wrap; gap: 1rem; }
+.search-controls > :first-child { flex: 1 1 16rem; }
+.search-controls input[type="search"], .search-controls select {
+  width: 100%; min-height: 42px; padding: .6rem; border: 1px solid var(--accent-2);
+  border-radius: 6px; color: var(--text-color); background: var(--bg-color); font: inherit;
+}
+.search-controls label { display: block; }
+.search-status { margin: 1rem 0; }
+.search-columns { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 1.5rem; }
+.search-columns fieldset { min-width: 0; margin: 0 0 1rem; padding: .75rem; border: 1px solid var(--accent-1); border-radius: 6px; }
+.search-columns legend { font-weight: bold; }
+.episode-search .ux-search-refinement-list__sort { display: none; }
+.episode-search .ux-search-facet__collapse { background: transparent; border: 0; padding: 0; color: var(--text-color); vertical-align: middle; }
+.episode-search .ux-search-refinement-list__label { white-space: normal; }
+.episode-search .pagination { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; padding: 0; }
+.episode-search .page-link { padding: .4rem .7rem; display: block; background: var(--accent-1); border-radius: 4px; }
+@media (max-width: 767.98px) { .search-columns { grid-template-columns: 1fr; } }

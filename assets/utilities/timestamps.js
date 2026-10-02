@@ -1,3 +1,4 @@
+// Native ES module entry for the AssetMapper pipeline.
 export function formatTimestamp(value) {
   if (value < 0) {
     return '0:00';

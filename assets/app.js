@@ -1,3 +1,5 @@
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import './stimulus_bootstrap.js';
 import naPlayer from './services/player.js';
 import naPlayerStorage from './services/player-storage.js';
 import naSettings from './services/settings.js';
@@ -5,24 +7,10 @@ import naStorage from './services/storage.js';
 
 // Include scripts
 import './scripts/clipboard.js';
-import './scripts/stimulus.js';
 import './scripts/swup.js';
 
 // Include web components
-import '@octopodcasting/player.js';
-
-// Include images
-import './images/adam-curry.jpeg';
-import './images/app-icon.png';
-import './images/favicon-32.png';
-import './images/john-c-dvorak.jpeg';
-import './images/placeholder_large.jpg';
-import './images/placeholder_small.jpg';
-import './images/podcastindex.svg';
-import './images/website-icon-128.png';
-import './images/website-icon-192.png';
-import './images/website-icon-512.png';
-import './images/website-logo.svg';
+import './lib/octopod/player.js';
 
 // Bootstrap application
 naStorage.initialize();
@@ -45,6 +33,12 @@ naSettings.subscribe('websiteTheme', (value) => {
 // Register service worker
 (async () => {
   if ('serviceWorker' in navigator) {
-    await navigator.serviceWorker.register('/service-worker.js');
+    if (window.naDebug) {
+      // Keep development requests on the live AssetMapper pipeline.
+      const registration = await navigator.serviceWorker.getRegistration('/');
+      await registration?.unregister();
+    } else {
+      await navigator.serviceWorker.register('/service-worker.js');
+    }
   }
 })();

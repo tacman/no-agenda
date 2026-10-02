@@ -1,0 +1,61 @@
+.transcript-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  font-size: 18px;
+}
+.transcript-grid .transcript-active {
+  background: var(--accent-2);
+}
+.transcript-grid .transcript-text {
+  grid-column-start: 2;
+}
+.transcript-grid .transcript-timestamp {
+  grid-column-start: 1;
+  text-align: right;
+}
+.transcript-grid .transcript-timestamp.clipboard-animate {
+  transition: background-color 1s;
+}
+.transcript-grid .transcript-timestamp.clipboard-error {
+  background-color: var(--warning);
+}
+.transcript-grid .transcript-timestamp.clipboard-success {
+  background-color: var(--success);
+}
+.transcript-grid .transcript-text,
+.transcript-grid .transcript-timestamp {
+  padding: 4px 8px;
+}
+.transcript-grid .transcript-text:active, .transcript-grid .transcript-text:hover,
+.transcript-grid .transcript-timestamp:active,
+.transcript-grid .transcript-timestamp:hover {
+  background: var(--accent-1);
+}
+
+.transcript-buttons {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (max-width: 767.98px) {
+  body.body-player .transcript-buttons {
+    padding-bottom: calc(16px + 68px + 16px);
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 991.98px) {
+  body.body-player .transcript-buttons {
+    padding-bottom: 184px;
+  }
+}
+@media screen and (min-width: 992px) {
+  body.body-player .transcript-buttons {
+    padding-bottom: 216px;
+  }
+  body.body-player-cover-expanded .transcript-buttons {
+    padding-bottom: 376px;
+  }
+}

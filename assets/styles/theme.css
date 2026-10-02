@@ -1,0 +1,52 @@
+/* Shared colours and light/dark themes. Edit directly; no build step. */
+:root {
+  --primary: #457b9d;
+  --primary-accent: #355f7a;
+  --primary-contrast: #eeeeee;
+  --donate: #e63946;
+  --donate-accent: #d21a28;
+  --donate-contrast: #eeeeee;
+  --success: #51d4a3;
+  --warning: #b65a54;
+}
+
+:root {
+  --bg-color: #eeeeee;
+  --text-color: #444444;
+  --highlight-color: #777777;
+  --accent-1: #dadada;
+  --accent-2: #c5c5c5;
+  --accent-3: #b1b1b1;
+  --shadow-color: rgba(68, 68, 68, 0.3);
+}
+
+.na-dark {
+  --bg-color: #222222;
+  --text-color: #d0d0d0;
+  --highlight-color: #9d9d9d;
+  --accent-1: #3c3c3c;
+  --accent-2: #555555;
+  --accent-3: #6f6f6f;
+  --shadow-color: rgba(208, 208, 208, 0.3);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #222222;
+    --text-color: #d0d0d0;
+    --highlight-color: #9d9d9d;
+    --accent-1: #3c3c3c;
+    --accent-2: #555555;
+    --accent-3: #6f6f6f;
+    --shadow-color: rgba(208, 208, 208, 0.3);
+  }
+  .na-light {
+    --bg-color: #eeeeee;
+    --text-color: #444444;
+    --highlight-color: #777777;
+    --accent-1: #dadada;
+    --accent-2: #c5c5c5;
+    --accent-3: #b1b1b1;
+    --shadow-color: rgba(68, 68, 68, 0.3);
+  }
+}

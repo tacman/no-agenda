@@ -55,7 +55,7 @@ class PlayerExtension extends AbstractExtension
             'type' => 'livestream',
             'title' => 'No Agenda Stream',
             'src' => 'https://listen.noagendastream.com/noagenda?type=.mp3',
-            'cover' => $environment->getExtension(AssetExtension::class)->getAssetUrl('build/images/placeholder_large.jpg', 'app'),
+            'cover' => $environment->getExtension(AssetExtension::class)->getAssetUrl('images/placeholder_large.jpg'),
         ];
     }
 }

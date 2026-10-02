@@ -1,9 +1,10 @@
+// Native ES module entry for the AssetMapper pipeline.
 import { Controller } from '@hotwired/stimulus';
 
-import naPlayer from '../services/player.js':
-import naSettings from '../services/settings.js':
-import naStorage from '../services/storage.js':
-import { formatTimestamp } from '../utilities/timestamps.js':
+import naPlayer from '../services/player.js';
+import naSettings from '../services/settings.js';
+import naStorage from '../services/storage.js';
+import { formatTimestamp } from '../utilities/timestamps.js';
 
 export default class extends Controller {
   static targets = [

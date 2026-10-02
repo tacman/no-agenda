@@ -1,3 +1,4 @@
+// Native ES module entry for the AssetMapper pipeline.
 import Clipboard from 'clipboard';
 
 const clipboard = new Clipboard('[data-clipboard-text]');

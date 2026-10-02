@@ -1,0 +1,33 @@
+.notice {
+  padding: 12px;
+  border: 1px solid var(--accent-2);
+  border-radius: 6px;
+}
+.notice .notice-buttons {
+  display: flex;
+  gap: 16px;
+}
+.notice .notice-buttons .btn {
+  flex-grow: 1;
+  white-space: nowrap;
+}
+.notice .notice-buttons .notice-close.btn {
+  flex-grow: 0;
+}
+@media screen and (max-width: 767.98px) {
+  .notice .notice-text {
+    margin-bottom: 16px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .notice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+}
+
+.notice-accent {
+  background: var(--accent-1);
+}

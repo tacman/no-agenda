@@ -1,0 +1,86 @@
+.archive .archive-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+.archive .archive-grid .episode {
+  text-decoration: none;
+}
+@media screen and (max-width: 575.98px) {
+  .archive .archive-grid .episode {
+    width: calc(50% - 8px);
+  }
+}
+@media screen and (min-width: 576px) and (max-width: 767.98px) {
+  .archive .archive-grid .episode {
+    width: calc(33.3% - 10.6666666667px);
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 991.98px) {
+  .archive .archive-grid .episode {
+    width: calc(33.3% - 10.6666666667px);
+  }
+}
+@media screen and (min-width: 992px) {
+  .archive .archive-grid .episode {
+    width: calc(25% - 12px);
+  }
+}
+.archive .archive-grid .episode h3 {
+  margin: 6px 0 0;
+}
+.archive .archive-grid .episode img {
+  max-width: 100%;
+}
+.archive .archive-pager {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.archive .archive-pager .pagination__item--current-page {
+  background-color: var(--primary-accent);
+  border-color: var(--primary-accent);
+  color: var(--primary-contrast);
+  cursor: initial;
+}
+.archive .archive-pager .pagination__item--current-page:hover, .archive .archive-pager .pagination__item--current-page:active {
+  border-color: var(--primary-accent);
+  background-color: var(--primary-accent);
+}
+.archive .archive-pager .pagination__item--disabled,
+.archive .archive-pager .pagination__item--separator {
+  background-color: var(--accent-3);
+  border-color: var(--accent-3);
+  color: var(--text-color);
+  cursor: initial;
+}
+.archive .archive-pager .pagination__item--disabled:hover, .archive .archive-pager .pagination__item--disabled:active,
+.archive .archive-pager .pagination__item--separator:hover,
+.archive .archive-pager .pagination__item--separator:active {
+  border-color: var(--accent-3);
+  background-color: var(--accent-3);
+}
+.archive .archive-list .episode {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  text-decoration: none;
+}
+.archive .archive-list .episode:active, .archive .archive-list .episode:hover {
+  background-color: var(--accent-1);
+}
+.archive .archive-list .episode + .episode {
+  border-top: 1px solid var(--accent-1);
+}
+
+@media screen and (max-width: 767.98px) {
+  .archive-pager-large {
+    display: none !important;
+  }
+}
+@media screen and (min-width: 768px) {
+  .archive-pager-small {
+    display: none !important;
+  }
+}

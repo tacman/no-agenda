@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% set page_title = 'Search Episodes — No Agenda' %}
+
+{% block title %}Search Episodes — No Agenda{% endblock %}
+
+{% block content %}
+    <section class="section episode-search">
+        <div class="section-content">
+            <h1>Search episodes</h1>
+            <p>Find an episode by number, title, or host. Filter by duration and sort by date.</p>
+            <twig:Survos:Search:Layout name="episodes" :initialQuery="{sort: 'o.publishedAt:desc'}" :urlRewriting="true" />
+        </div>
+    </section>
+{% endblock %}

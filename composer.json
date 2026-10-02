@@ -13,7 +13,7 @@
         "ext-imagick": "*",
         "ext-json": "*",
         "ext-libxml": "*",
-        "ext-pdo_sqlite": "*",
+        "ext-pdo_pgsql": "*",
         "ext-simplexml": "*",
         "api-platform/doctrine-orm": "^4.1",
         "api-platform/symfony": "^4.1",
@@ -36,6 +36,7 @@
         "phpstan/phpdoc-parser": "^2.1",
         "sentry/sentry-symfony": "^5.2",
         "survos/imgproxy-bundle": "^2.15",
+        "survos/search-bundle": "^2.34",
         "symfony/amqp-messenger": "^8.1",
         "symfony/asset": "^8.1",
         "symfony/asset-mapper": "^8.1",
@@ -64,7 +65,6 @@
         "symfony/validator": "^8.1",
         "symfony/web-link": "^8.1",
         "symfony/yaml": "^8.1",
-        "symfonycasts/sass-bundle": "^0.10",
         "vipnytt/opmlparser": "dev-master"
     },
     "require-dev": {

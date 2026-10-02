@@ -1,0 +1,25 @@
+{% extends '@!SurvosSearch/Layout.html.twig' %}
+
+{% block content %}
+    <div class="search-controls">
+        <twig:Survos:Search:SearchInput />
+        <twig:Survos:Search:SortBy />
+        <twig:Survos:Search:HitsPerPage />
+    </div>
+    <div class="search-status">
+        <twig:Survos:Search:TotalHits />
+        <twig:Survos:Search:CurrentRefinements />
+        <twig:Survos:Search:ClearRefinements />
+    </div>
+    <div class="search-columns">
+        <aside aria-label="Filter episodes">
+            {% for facet in search.facets %}
+                <twig:Survos:Search:Facet :property="facet.property" />
+            {% endfor %}
+        </aside>
+        <div>
+            <twig:Survos:Search:Hits />
+            <twig:Survos:Search:Pagination />
+        </div>
+    </div>
+{% endblock %}

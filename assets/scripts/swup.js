@@ -1,3 +1,4 @@
+// Native ES module entry for the AssetMapper pipeline.
 import SwupDebugPlugin from '@swup/debug-plugin';
 import SwupHeadPlugin from '@swup/head-plugin';
 import SwupMatomoPlugin from '@swup/matomo-plugin';

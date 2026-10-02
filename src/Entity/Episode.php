@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use Survos\FieldBundle\Attribute\Field;
+use Survos\FieldBundle\Attribute\EntityMeta;
+use Survos\FieldBundle\Enum\Widget;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
@@ -15,6 +18,7 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
 
+#[EntityMeta(icon: 'mdi:podcast', label: 'Episodes', group: 'Podcast')]
 #[Entity(repositoryClass: EpisodeRepository::class)]
 #[Table(name: 'na_episode')]
 #[ApiResource(security: "is_granted('ROLE_USER')")]
@@ -30,15 +34,19 @@ class Episode implements \Stringable
     private ?int $id = null;
 
     #[Column(type: 'string', length: 16)]
+    #[Field(searchable: true, order: 10)]
     private ?string $code = null;
 
     #[Column(type: 'string', length: 255)]
+    #[Field(searchable: true, sortable: true, order: 20)]
     private ?string $name = null;
 
     #[Column(type: 'string', length: 255)]
+    #[Field(searchable: true, filterable: true, facet: true, widget: Widget::Select, order: 30)]
     private ?string $author = null;
 
     #[Column(type: 'date')]
+    #[Field(sortable: true, format: 'date', order: 40)]
     private ?\DateTimeInterface $publishedAt = null;
 
     #[Column(type: 'boolean')]
@@ -48,6 +56,7 @@ class Episode implements \Stringable
     private bool $special = false;
 
     #[Column(type: 'integer', nullable: true)]
+    #[Field(sortable: true, filterable: true, widget: Widget::Range, order: 50)]
     private ?int $duration = null;
 
     #[Column(type: 'text')]

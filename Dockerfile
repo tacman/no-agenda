@@ -1,29 +1,3 @@
-FROM node:24-alpine AS assets
-
-WORKDIR /srv/app
-
-ENV FPM_HOST=app
-ENV FPM_PORT=9000
-
-# Install dependencies
-COPY package.json package-lock.json ./
-RUN set -eux; \
-    npm install; \
-	npm cache clean --force
-
-# Compile assets
-COPY .babelrc .eslintrc.json jest.config.js webpack.config.js ./
-COPY assets assets/
-RUN set -eux; \
-    npm run production
-
-# Set up entrypoint
-COPY docker/assets-entrypoint.sh /usr/local/bin/docker-entrypoint
-RUN chmod +x /usr/local/bin/docker-entrypoint
-
-ENTRYPOINT ["docker-entrypoint"]
-CMD ["npm", "run", "watch"]
-
 FROM php:8.5-fpm-trixie AS app
 
 ARG UID=3302
@@ -74,7 +48,10 @@ RUN set -eux; \
     rm -rf /var/lib/apt/lists/*
 
 RUN set -eux; \
-    docker-php-ext-install pdo_mysql
+    apt-get update; \
+    apt-get install --no-install-recommends -y libpq-dev; \
+    docker-php-ext-install pdo_pgsql; \
+    rm -rf /var/lib/apt/lists/*
 
 RUN set -eux; \
     apt-get update; \
@@ -117,7 +94,8 @@ COPY --chown=ben:ben templates templates/
 COPY --chown=ben:ben tests tests/
 COPY --chown=ben:ben translations translations/
 
-COPY --from=assets --chown=ben:ben /srv/app/public public/
+COPY --chown=ben:ben assets assets/
+COPY --chown=ben:ben importmap.php ./
 
 RUN mkdir -p \
         docker/storage/chapters \
@@ -136,7 +114,8 @@ RUN set -eux; \
     composer clear-cache; \
     composer dump-autoload --classmap-authoritative; \
     APP_ENV=prod bin/console cache:warmup; \
-    APP_ENV=prod composer run-script post-install-cmd
+    APP_ENV=prod composer run-script post-install-cmd; \
+    APP_ENV=prod bin/console asset-map:compile
 
 FROM nginx:alpine AS web
 

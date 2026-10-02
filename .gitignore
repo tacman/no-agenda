@@ -27,3 +27,6 @@ phpstan.neon
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+# Local import and verification scratch files
+/work/

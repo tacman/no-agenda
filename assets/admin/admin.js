@@ -1,4 +1,4 @@
-import './admin.scss';
+import './admin.css';
 
 window.addEventListener('load', () => {
   // Initialize Bootstrap tooltips

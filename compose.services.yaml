@@ -1,6 +1,8 @@
 services:
   queue_worker:
     image: ghcr.io/noagenda/website/app:${APP_TAG:-local}
+    environment:
+      DATABASE_URL: postgresql://no_agenda:ChangeMe@database:5432/no_agenda?serverVersion=18&charset=utf8
     restart: unless-stopped
     tty: true
     entrypoint: app-php-entrypoint

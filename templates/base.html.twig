@@ -9,9 +9,9 @@
     <title>{{ page_title ?? 'No Agenda Show' }}</title>
     {% if page_description %}<meta name="description" content="{{ page_description }}">{% endif %}
 
+    <link rel="icon" href="{{ asset('images/favicon-32.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/app-icon.png') }}">
     <link rel="manifest" href="{{ asset('site.webmanifest') }}">
-{#    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('build/images/favicon-32.png', 'app') }}">#}
-{#    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('build/images/app-icon.png', 'app') }}">#}
 
     {% block metatags %}
       <meta property="og:site_name" content="No Agenda Show"/>
@@ -19,8 +19,7 @@
     {% endblock %}
 
     {% block stylesheets %}
-{#      {{ encore_entry_link_tags('app', null, 'app') }}#}
-      <link rel="stylesheet" href="{{ asset('styles/app.scss') }}">
+      <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
 
       <noscript>
         <style>
@@ -44,7 +43,6 @@
         window.recordingTimes = {{ recording_times|json_encode|raw }};
       </script>
 
-      {{ encore_entry_script_tags('app', null, 'app') }}
     {% endblock %}
   </head>
   <body>

@@ -1,3 +1,4 @@
+// Native ES module entry for the AssetMapper pipeline.
 export function currentlyRecording(date, recordingTimes) {
   const matchingRecordingTimes = recordingTimes.map(([recordingDay, recordingHour]) => {
     const localTime = date.setZone('America/Los_Angeles');

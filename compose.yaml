@@ -7,8 +7,8 @@ services:
     platform: linux/x86_64
     restart: unless-stopped
     tty: true
-    #entrypoint: docker-php-entrypoint
-    #command: php-fpm
+    environment:
+      DATABASE_URL: postgresql://no_agenda:ChangeMe@database:5432/no_agenda?serverVersion=18&charset=utf8
     depends_on:
       - database
       - mail
@@ -16,37 +16,21 @@ services:
       - ./:/srv/app
       - public_media:/srv/app/public/media
     networks:
-      - assets
       - database
       - php
       - web
 
-  assets:
-    build:
-      context: .
-      target: assets
-    image: ghcr.io/noagenda/website/assets:${APP_TAG:-local}
-    platform: linux/x86_64
-    restart: unless-stopped
-    tty: true
-    volumes:
-      - ./:/srv/app
-    networks:
-      - assets
-
   database:
-    image: mysql:8.0
+    image: postgres:18
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: InTheMorning
-      MYSQL_DATABASE: noagenda
-      MYSQL_USER: dudenamedben
-      MYSQL_PASSWORD: dudettenamedbernadette
+      POSTGRES_DB: no_agenda
+      POSTGRES_USER: no_agenda
+      POSTGRES_PASSWORD: ChangeMe
     ports:
-      - "8034:3306"
+      - "8034:5432"
     volumes:
-      - ./docker/database/conf.d:/etc/mysql/conf.d
-      - database_data:/var/lib/mysql
+      - postgres_data:/var/lib/postgresql
     networks:
       - database
 
@@ -67,7 +51,6 @@ services:
     restart: unless-stopped
     depends_on:
       - app
-      - assets
     ports:
       - "8033:80"
     volumes:
@@ -78,11 +61,10 @@ services:
       - web
 
 volumes:
-  database_data:
+  postgres_data:
   public_media:
 
 networks:
-  assets:
   database:
   php:
   web:

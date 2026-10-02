@@ -1,0 +1,35 @@
+.shownotes {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.shownotes details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 12px;
+  border-left: 4px solid var(--accent-3);
+}
+.shownotes details summary {
+  padding: 8px 0;
+  cursor: pointer;
+}
+.shownotes details summary::marker {
+  margin-right: 4px;
+}
+.shownotes details[open] {
+  padding-bottom: 8px;
+}
+.shownotes details[open] > summary {
+  padding-bottom: 16px;
+}
+.shownotes details[open] > :last-child {
+  margin-bottom: 0;
+}
+.shownotes .permalink {
+  margin-bottom: 12px;
+}
+.shownotes audio, .shownotes img {
+  max-width: 800px;
+  width: 100%;
+}

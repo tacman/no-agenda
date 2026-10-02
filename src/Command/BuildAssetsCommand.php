@@ -2,89 +2,51 @@
 
 namespace App\Command;
 
+use Symfony\Component\AssetMapper\AssetMapperInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Twig\Environment;
 
-#[AsCommand(
-    name: 'assets:build',
-    description: 'Build custom assets',
-)]
+#[AsCommand(name: 'assets:build', description: 'Build the web manifest and service worker from AssetMapper assets')]
 class BuildAssetsCommand extends Command
 {
-    private readonly string $publicDirectory;
-    private readonly string $webpackManifest;
-
-    public function __construct(private readonly Environment $twig)
-    {
+    public function __construct(
+        private readonly Environment $twig,
+        private readonly AssetMapperInterface $assetMapper,
+    ) {
         parent::__construct();
-
-        $this->publicDirectory = dirname(__FILE__, 3) . '/public';
-        $this->webpackManifest = $this->publicDirectory . '/build/manifest.json';
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        if (!file_exists($this->webpackManifest)) {
-            return Command::SUCCESS;
+        $icons = [];
+        foreach ([512, 192, 128] as $size) {
+            $icons[] = [
+                'src' => $this->assetMapper->getAsset("images/website-icon-$size.png")->publicPath,
+                'sizes' => "{$size}x{$size}",
+                'type' => 'image/png',
+                'purpose' => 'any',
+            ];
         }
-
-        $timestamp = (new \DateTime())->format('YmdHi');
-
-        $this->buildManifest();
-        $this->buildServiceWorker($timestamp);
-
-        return Command::SUCCESS;
-    }
-
-    private function buildManifest(): void
-    {
-        $assets = json_decode(file_get_contents($this->webpackManifest), true);
-
-        $contents = [
+        $public = dirname(__DIR__, 2).'/public';
+        file_put_contents($public.'/site.webmanifest', json_encode([
             'name' => 'No Agenda Show',
             'short_name' => 'No Agenda',
-            'description' => 'The official No Agenda player',
+            'description' => 'The No Agenda player and archive',
             'display' => 'minimal-ui',
-            'start_url' => '.',
-            'icons' => [
-                [
-                    'src' => $assets['build/images/website-icon-512.png'],
-                    'size' => '512x512',
-                    'type' => 'image/png',
-                    'purpose' => 'any',
-                ],
-                [
-                    'src' => $assets['build/images/website-icon-192.png'],
-                    'size' => '192x192',
-                    'type' => 'image/png',
-                    'purpose' => 'any',
-                ],
-                [
-                    'src' => $assets['build/images/website-icon-128.png'],
-                    'size' => '128x128',
-                    'type' => 'image/png',
-                    'purpose' => 'any',
-                ],
-            ],
-        ];
+            'start_url' => '/',
+            'icons' => $icons,
+        ], JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES));
 
-        file_put_contents($this->publicDirectory . '/site.webmanifest', json_encode($contents, JSON_UNESCAPED_SLASHES));
-    }
-
-    private function buildServiceWorker(string $timestamp): void
-    {
-        $assets = json_decode(file_get_contents($this->webpackManifest), true);
-        $logoAsset = array_values(array_filter($assets, fn ($asset): bool => str_contains((string) $asset, 'website-icon-192')))[0];
-
-        $contents = $this->twig->render('service_worker.js.twig', [
-            'timestamp' => $timestamp,
+        $assets = array_column($icons, 'src');
+        file_put_contents($public.'/service-worker.js', $this->twig->render('service_worker.js.twig', [
+            'timestamp' => (string) time(),
             'assets' => $assets,
-            'logo_asset' => $logoAsset,
-        ]);
+            'logo_asset' => $icons[1]['src'],
+        ]));
 
-        file_put_contents($this->publicDirectory . '/service-worker.js', $contents);
+        return Command::SUCCESS;
     }
 }

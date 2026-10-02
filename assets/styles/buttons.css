@@ -1,0 +1,94 @@
+.btn {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid var(--primary);
+  border-radius: 6px;
+  background-color: var(--primary);
+  color: var(--primary-contrast);
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  vertical-align: middle;
+}
+.btn .btn-icon:not(:only-child):first-child {
+  margin-right: 8px;
+}
+.btn .btn-icon:not(:only-child):last-child {
+  margin-left: 8px;
+}
+.btn:hover, .btn:active {
+  border-color: var(--primary-accent);
+  background-color: var(--primary-accent);
+}
+.btn.clipboard-animate {
+  transition: background-color 1s;
+}
+.btn.clipboard-error {
+  background-color: var(--warning);
+}
+.btn.clipboard-success {
+  background-color: var(--success);
+}
+
+.btn-small {
+  padding: 8px;
+  font-size: 0.9em;
+  line-height: 1.1em;
+}
+
+.btn-large {
+  padding: 20px 24px;
+  font-size: 1.3em;
+}
+
+.btn-accent {
+  background-color: var(--accent-1);
+  border-color: var(--accent-1);
+  color: var(--text-color);
+}
+.btn-accent:hover, .btn-accent:active {
+  border-color: var(--accent-2);
+  background-color: var(--accent-2);
+}
+
+.btn-accent-2 {
+  background-color: var(--accent-2);
+  border-color: var(--accent-2);
+  color: var(--text-color);
+}
+.btn-accent-2:hover, .btn-accent-2:active {
+  border-color: var(--accent-3);
+  background-color: var(--accent-3);
+}
+
+.btn-donate {
+  background-color: var(--donate);
+  border-color: var(--donate);
+  color: var(--donate-contrast);
+}
+.btn-donate:hover, .btn-donate:active {
+  border-color: var(--donate-accent);
+  background-color: var(--donate-accent);
+}
+
+.btn-link {
+  background-color: var(--bg-color);
+  border-color: var(--bg-color);
+  color: var(--text-color);
+}
+.btn-link:hover, .btn-link:active {
+  border-color: var(--accent-1);
+  background-color: var(--accent-1);
+}
+
+.btn[disabled] {
+  background-color: var(--accent-3);
+  border-color: var(--accent-3);
+  color: var(--text-color);
+  cursor: initial;
+}
+.btn[disabled]:hover, .btn[disabled]:active {
+  border-color: var(--accent-3);
+  background-color: var(--accent-3);
+}

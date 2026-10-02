@@ -1,7 +1,7 @@
 {#
   This service worker is currently setup to:
   - Cache /offline
-  - Cache assets in /build directory
+  - Cache assets in /assets directory
   - Receive push notifications
 #}
 
@@ -72,7 +72,7 @@ const fetchRequest = async (request, preloadResponsePromise) => {
   const requestUrl = new URL(request.url);
 
   const mediaResource = requestUrl.pathname.startsWith('/media');
-  const staticResource = requestUrl.pathname.startsWith('/build');
+  const staticResource = requestUrl.pathname.startsWith('/assets');
 
   const cacheResponse = await fetchFromCache(request, preloadResponsePromise, staticResource);
   if (cacheResponse) {

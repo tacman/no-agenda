@@ -1,3 +1,4 @@
+// Application service loaded as a native ES module by AssetMapper.
 class Settings {
   playbackSpeeds = {
     50: '0.5',
