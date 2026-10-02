@@ -1,0 +1,10 @@
+survos_elastic:
+    spool_enabled: false
+    analysis:
+        language: english
+        ascii_folding: true
+
+when@prod:
+    survos_elastic:
+        spool_enabled: true
+        async: true

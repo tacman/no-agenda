@@ -419,7 +419,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         enabled?: bool|Param, // Default: true
  *     },
  *     lock?: Param|bool|string|array{ // Lock configuration
- *         enabled?: bool|Param, // Default: false
+ *         enabled?: bool|Param, // Default: true
  *         resources?: Param|string|array<string, Param|string|list<scalar|Param|null>>,
  *     },
  *     semaphore?: Param|bool|string|array{ // Semaphore configuration
@@ -1994,6 +1994,28 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     default_hits_per_page?: int|Param, // Default: 24
  *     default_hits_per_page_choices?: list<int|Param>,
  * }
+ * @psalm-type SurvosJsonlConfig = array{
+ *     compression_level?: int|Param, // Default: 1
+ * }
+ * @psalm-type SurvosElasticConfig = array{
+ *     spool_dir?: scalar|Param|null, // Where postFlush writes the ids awaiting reindex. // Default: "%kernel.project_dir%/var/elastic-spool"
+ *     spool_enabled?: bool|Param, // Turn the Doctrine listener off for bulk imports that reindex explicitly afterwards. // Default: true
+ *     async?: bool|Param, // Dispatch reindex work through Messenger. With this off (or with no bus installed) the listener writes a JSONL spool for elastic:spool:flush instead -- the right mode for bulk imports. // Default: true
+ *     batch_size?: int|Param, // Ids per message. One huge flush becomes several bounded jobs. // Default: 500
+ *     handler_batch_size?: int|Param, // ReindexDocuments messages the worker collects before reconciling them in one query and bulk request per class. // Default: 50
+ *     handler_idle_timeout?: int|Param, // Seconds of worker idleness after which a partial batch is reconciled. 0 waits for a full batch. // Default: 1
+ *     analysis?: array{ // Text analysis. Without it every text field uses the "standard" analyzer, which does no stemming and no accent folding -- searches work but are markedly worse, and any comparison against Meilisearch is unfair. index.analysis is a STATIC setting, so changing this needs elastic:index:rebuild.
+ *         language?: scalar|Param|null, // Elasticsearch stemmer language: english, hungarian, spanish, german, french, ... Null leaves the default analyzer in place. // Default: null
+ *         ascii_folding?: bool|Param, // Fold accents so "Kovacs" matches "Kovács". Applies only when a language is set. // Default: true
+ *     },
+ *     index_pattern?: scalar|Param|null, // Which cluster indices the admin page considers this app's, e.g. "kpa_*". The cluster index namespace is flat and shared by every app pointed at the node, so this is how the page finds indices this app owns but never declared -- a leftover from a rename, a locale variant. Defaults to survos_search.index_prefix + "*", so it tracks exactly what this app writes; set it only to widen or narrow that deliberately. // Default: null
+ *     elasticvue_url?: scalar|Param|null, // Elasticvue (https://elasticvue.com) — the closest equivalent to the riccox Meilisearch UI. Point this at a self-hosted instance (docker run -p 8080:8080 cars10/elasticvue) or https://app.elasticvue.com. Null hides the menu link. Note that Elasticvue talks to Elasticsearch from the browser, so the node needs http.cors.enabled unless it is proxied. // Default: null
+ *     kibana_url?: scalar|Param|null, // Browser-facing Kibana base URL (including any space/base path). In debug, null defaults to localhost:5601 only when all ES connections are loopback; otherwise the link is hidden. // Default: null
+ *     server_url?: scalar|Param|null, // The Elasticsearch node itself, for a direct link in the admin menu. Null hides it. // Default: null
+ *     routes_enabled?: bool|Param, // Set false to manage this bundle's routes manually in your app. Bundles exposing sensitive routes (e.g. running console commands) should default this off. // Default: true
+ *     route_prefix?: scalar|Param|null, // URL prefix applied to all routes from this bundle. // Default: "/admin/elastic"
+ *     locale_prefix?: bool|Param, // Prepend {_locale} (constrained to kernel.enabled_locales) to this bundle's route prefix, e.g. /{_locale}/f instead of /f -- for bundles whose routes are meant to be shared/bookmarked, so the URL itself carries the locale instead of a query param. // Default: false
+ * }
  * @psalm-type ConfigType = array{
  *     imports?: ImportsConfig,
  *     parameters?: ParametersConfig,
@@ -2016,6 +2038,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     ux_icons?: UxIconsConfig,
  *     survos_field?: SurvosFieldConfig,
  *     survos_search?: SurvosSearchConfig,
+ *     survos_jsonl?: SurvosJsonlConfig,
+ *     survos_elastic?: SurvosElasticConfig,
  *     "when@dev"?: array{
  *         imports?: ImportsConfig,
  *         parameters?: ParametersConfig,
@@ -2043,6 +2067,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         ux_icons?: UxIconsConfig,
  *         survos_field?: SurvosFieldConfig,
  *         survos_search?: SurvosSearchConfig,
+ *         survos_jsonl?: SurvosJsonlConfig,
+ *         survos_elastic?: SurvosElasticConfig,
  *     },
  *     "when@prod"?: array{
  *         imports?: ImportsConfig,
@@ -2067,6 +2093,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         ux_icons?: UxIconsConfig,
  *         survos_field?: SurvosFieldConfig,
  *         survos_search?: SurvosSearchConfig,
+ *         survos_jsonl?: SurvosJsonlConfig,
+ *         survos_elastic?: SurvosElasticConfig,
  *     },
  *     "when@staging"?: array{
  *         imports?: ImportsConfig,
@@ -2091,6 +2119,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         ux_icons?: UxIconsConfig,
  *         survos_field?: SurvosFieldConfig,
  *         survos_search?: SurvosSearchConfig,
+ *         survos_jsonl?: SurvosJsonlConfig,
+ *         survos_elastic?: SurvosElasticConfig,
  *     },
  *     "when@test"?: array{
  *         imports?: ImportsConfig,
@@ -2116,6 +2146,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         ux_icons?: UxIconsConfig,
  *         survos_field?: SurvosFieldConfig,
  *         survos_search?: SurvosSearchConfig,
+ *         survos_jsonl?: SurvosJsonlConfig,
+ *         survos_elastic?: SurvosElasticConfig,
  *     },
  *     ...<string, ExtensionType|array{ // extra keys must follow the when@%env% pattern or match an extension alias
  *         imports?: ImportsConfig,

@@ -28,4 +28,6 @@ return [
     Symfony\UX\Icons\UXIconsBundle::class => ['all' => true],
     Survos\FieldBundle\SurvosFieldBundle::class => ['all' => true],
     Survos\SearchBundle\SurvosSearchBundle::class => ['all' => true],
+    Survos\JsonlBundle\SurvosJsonlBundle::class => ['all' => true],
+    Survos\ElasticBundle\SurvosElasticBundle::class => ['all' => true],
 ];

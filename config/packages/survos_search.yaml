@@ -2,3 +2,9 @@ survos_search:
     default_adapter: default
     adapters:
         default: doctrine://default
+
+when@prod:
+    survos_search:
+        index_prefix: no_agenda_
+        adapters:
+            default: '%env(ELASTICSEARCH_DSN)%'

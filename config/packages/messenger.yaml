@@ -22,6 +22,8 @@ framework:
                     auto_setup: false
 
         routing:
+            'Survos\ElasticBundle\Message\ReindexDocuments': async
+            'Survos\ElasticBundle\Message\RemoveDocuments': async
             'App\Message\Crawl': crawler
             'App\Message\PrepareEpisode': crawler
 

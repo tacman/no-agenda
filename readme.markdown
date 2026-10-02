@@ -111,3 +111,24 @@ npx web-push generate-vapid-keys
 ```
 
 Add the keys to your `.env.local` file.
+
+## Production deployment
+
+`no-agenda.survos.com` runs on the `no-agenda` Dokku app on `fsn1`, using
+the Heroku PHP buildpack and a dedicated PostgreSQL 18 service (`no-agenda-db`).
+Predeploy compiles AssetMapper assets and runs migrations. `/health` is the
+startup check. Transcript and shownote files persist at `/app/var/storage`.
+
+Development uses the Doctrine search adapter. Production uses the shared private
+Elasticsearch service with an app-scoped key and the `no_agenda_` index prefix.
+Create/populate the episode metadata index after loading the database:
+
+```bash
+ssh dokku@fsn1 enter no-agenda web php bin/console elastic:index:create episodes -n
+ssh dokku@fsn1 enter no-agenda web php bin/console elastic:index:populate episodes -n
+```
+
+The worker consumes crawler, scheduler, and asynchronous indexing jobs. Keep its
+Dokku restart policy at `unless-stopped` so timed worker exits restart. Production
+secrets belong in Dokku config; outbound publishing stays disabled until explicitly
+configured. Transcript full-text indexing and AI enrichment are not yet enabled.
