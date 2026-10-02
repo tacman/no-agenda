@@ -9,6 +9,7 @@ use Survos\SearchBundle\Attribute\AsSearch;
 use Survos\SearchBundle\Search\AbstractFieldSearch;
 use Survos\SearchBundle\Search\HitTemplateSearchInterface;
 use Survos\SearchBundle\Event\PreSearchEvent;
+use Survos\SearchBundle\Event\PostSearchEvent;
 use Survos\SearchBundle\Search\Filter\TermFilter;
 
 #[AsSearch(index: Episode::class, name: 'episodes', adapter: 'default')]
@@ -30,6 +31,10 @@ final class EpisodeSearch extends AbstractFieldSearch implements HitTemplateSear
         if ($this->usesElasticsearch()) {
             $this->addEventListener(PreSearchEvent::class, static function (PreSearchEvent $event): void {
                 $event->getQuery()->addActiveFilter(new TermFilter('published', [true]));
+            });
+            // Publication is an enforced constraint, not a removable browsing facet.
+            $this->addEventListener(PostSearchEvent::class, static function (PostSearchEvent $event): void {
+                $event->getQuery()->removeActiveFilter(new TermFilter('published'));
             });
 
             return;
