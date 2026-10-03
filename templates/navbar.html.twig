@@ -16,11 +16,14 @@
       </a>
       <div class="navbar-actions">
         {% for link in nav_links %}
-          <a href="{{ path(link.route) }}" class="action action-collapse-hide">
+          <a href="{{ path(link.route) }}"{% if link.route == 'episode_admin' %} data-no-swup{% endif %} class="action action-collapse-hide">
             <span>{{ link.label }}</span>
           </a>
         {% endfor %}
 
+        <a href="{{ path('episode_admin') }}" class="action" title="Episode AI Lab" aria-label="Episode AI Lab" data-no-swup>
+          <span class="fa-solid fa-fw fa-user-gear" aria-hidden="true"></span>
+        </a>
         <div role="button" class="action js" title="Toggle Settings" data-navbar-target="controlsButton" data-action="click->navbar#toggleControls">
           <span class="fa-solid fa-fw fa-cog" aria-hidden="true"></span>
         </div>
@@ -43,7 +46,7 @@
   <div class="navbar-menu hide" data-navbar-target="menu">
     <nav class="navbar-links">
       {% for link in nav_links %}
-      <a href="{{ path(link.route) }}" class="link">
+      <a href="{{ path(link.route) }}"{% if link.route == 'episode_admin' %} data-no-swup{% endif %} class="link">
         <span>{{ link.label }}</span>
         {% if link.icon is defined %}
           <span class="fa-solid fa-{{ link.icon}} fa-fw" aria-hidden="true"></span>

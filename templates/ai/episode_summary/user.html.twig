@@ -1,0 +1,12 @@
+{% autoescape false %}
+Episode: {{ context.episode }} — {{ title }}
+{% if context.chapter|default(null) %}Publisher chapter: {{ context.chapter }}{% endif %}
+{% if context.start|default(null) is not null %}Segment: {{ context.start }}–{{ context.end }} seconds{% endif %}
+{% if context.segmentId|default(null) %}
+Summarize this transcript segment in 100–180 words.
+{% else %}
+These are completed summaries of the entire episode, in chronological order. Write a substantive 180–250-word episode overview covering its main topics and arguments. Do not return just the show name or a title. Fill dense_summary with the complete overview.
+{% endif %}
+Source material:
+{{ text }}
+{% endautoescape %}

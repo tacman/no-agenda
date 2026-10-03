@@ -4,6 +4,7 @@ framework:
         failure_transport: failed
 
         transports:
+            sync: 'sync://'
             # https://symfony.com/doc/current/messenger.html#transport-configuration
             async:
                 dsn: 'doctrine://default'

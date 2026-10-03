@@ -1,0 +1,9 @@
+framework:
+    http_client:
+        scoped_clients:
+            episode.ollama.client:
+                base_uri: '%env(OLLAMA_HOST_URL)%'
+                timeout: 90
+                max_duration: 110
+                headers:
+                    User-Agent: 'Survos-Episode-AI/1.0'

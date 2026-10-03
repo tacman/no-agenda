@@ -23,6 +23,7 @@
  * }>
  */
 return [
+    'admin' => ['path' => './assets/admin.js', 'entrypoint' => true],
     'app' => ['path' => './assets/app.js', 'entrypoint' => true],
     '@hotwired/stimulus' => ['version' => '3.2.2'],
     'instantsearch.js' => ['version' => '4.119.0'],
@@ -103,4 +104,24 @@ return [
     '@swup/plugin' => ['version' => '4.0.0'],
     'scrl' => ['version' => '2.0.0'],
     '@fortawesome/fontawesome-free/css/all.min.css' => ['version' => '6.7.2', 'type' => 'css'],
+    'd3-graphviz' => ['version' => '5.6.0'],
+    'd3-selection' => ['version' => '3.0.0'],
+    'd3-dispatch' => ['version' => '3.0.1'],
+    'd3-transition' => ['version' => '3.0.1'],
+    'd3-timer' => ['version' => '3.0.1'],
+    'd3-interpolate' => ['version' => '3.0.1'],
+    'd3-zoom' => ['version' => '3.0.0'],
+    '@hpcc-js/wasm/graphviz' => ['version' => '2.20.0'],
+    'd3-format' => ['version' => '3.1.0'],
+    'd3-path' => ['version' => '3.1.0'],
+    'd3-color' => ['version' => '3.0.1'],
+    'd3-ease' => ['version' => '3.0.1'],
+    'd3-drag' => ['version' => '3.0.0'],
+    'flag-icons/css/flag-icons.min.css' => ['version' => '7.5.0', 'type' => 'css'],
+    '@floating-ui/dom' => ['version' => '1.8.0'],
+    '@floating-ui/core' => ['version' => '1.8.0'],
+    '@floating-ui/utils' => ['version' => '0.2.12'],
+    '@floating-ui/utils/dom' => ['version' => '0.2.12'],
+    '@tabler/core' => ['version' => '1.6.1'],
+    '@tabler/core/dist/css/tabler.min.css' => ['version' => '1.6.1', 'type' => 'css'],
 ];

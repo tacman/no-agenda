@@ -1,0 +1,6 @@
+ai:
+    platform:
+        ollama:
+            endpoint: '%env(OLLAMA_HOST_URL)%'
+            api_key: '%env(OLLAMA_API_KEY)%'
+            http_client: episode.ollama.client

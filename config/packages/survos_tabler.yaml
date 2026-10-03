@@ -1,0 +1,5 @@
+survos_tabler:
+    app:
+        title: No Agenda AI Lab
+        abbr: No Agenda
+        homepage_route: episode_admin

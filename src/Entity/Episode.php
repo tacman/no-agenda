@@ -11,6 +11,11 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Repository\EpisodeRepository;
+use App\Workflow\EpisodeFlow;
+use Survos\StateBundle\Traits\MarkingInterface;
+use Survos\StateBundle\Traits\MarkingTrait;
+use Survos\AiWorkflowBundle\Traits\PendingStepsTrait;
+use Survos\AiWorkflowBundle\Traits\PendingStepsInterface;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
@@ -26,8 +31,17 @@ use Doctrine\ORM\Mapping\Table;
 #[Put(security: "is_granted('ROLE_ADMIN') or object.owner == user")]
 #[GetCollection]
 #[Post(security: "is_granted('ROLE_ADMIN')")]
-class Episode implements \Stringable
+class Episode implements \Stringable, MarkingInterface, PendingStepsInterface
 {
+    use MarkingTrait;
+    use PendingStepsTrait;
+
+    #[Column(type: 'boolean', options: ['default' => false])]
+    public bool $workflowLocked = false;
+
+    #[Column(type: 'text', nullable: true)]
+    public ?string $denseSummary = null;
+
     #[Id]
     #[GeneratedValue]
     #[Column(type: 'integer')]
@@ -97,6 +111,7 @@ class Episode implements \Stringable
 
     public function __construct()
     {
+        $this->marking = EpisodeFlow::PLACE_NEW;
         $this->lastModifiedAt = new \DateTimeImmutable();
     }
 

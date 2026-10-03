@@ -30,6 +30,9 @@ security:
             entry_point: form_login
 
     access_control:
+        # Read-only AI lab and workflow views are intentionally public for now.
+        - { path: '^/admin/episodes(?:/[^/]+)?$', roles: PUBLIC_ACCESS, methods: [GET] }
+        - { path: '^/admin/state/(?:_state/workflows|workflow/[^/]+|entities|)$', roles: PUBLIC_ACCESS, methods: [GET] }
         - { path: ^/admin, roles: ROLE_ADMIN }
 
 when@test:

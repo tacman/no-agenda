@@ -30,4 +30,11 @@ return [
     Survos\SearchBundle\SurvosSearchBundle::class => ['all' => true],
     Survos\JsonlBundle\SurvosJsonlBundle::class => ['all' => true],
     Survos\ElasticBundle\SurvosElasticBundle::class => ['all' => true],
+    Symfony\AI\AiBundle\AiBundle::class => ['all' => true],
+    Survos\StateBundle\SurvosStateBundle::class => ['all' => true],
+    Survos\ClaimsBundle\SurvosClaimsBundle::class => ['all' => true],
+    Survos\AiWorkflowBundle\SurvosAiWorkflowBundle::class => ['all' => true],
+    Knp\Bundle\MenuBundle\KnpMenuBundle::class => ['all' => true],
+    Survos\TablerBundle\SurvosTablerBundle::class => ['all' => true],
+    Tacman\AiBatch\TacmanAiBatchBundle::class => ['all' => true],
 ];

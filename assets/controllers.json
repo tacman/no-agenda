@@ -28,6 +28,38 @@
                 "fetch": "lazy"
             }
         },
+        "@survos/state-bundle": {
+            "workflow": {
+                "enabled": true,
+                "fetch": "eager"
+            }
+        },
+        "@survos/tabler-bundle": {
+            "accordion": {
+                "enabled": true,
+                "fetch": "lazy"
+            },
+            "search": {
+                "enabled": true,
+                "fetch": "lazy"
+            },
+            "clipboard": {
+                "enabled": true,
+                "fetch": "lazy"
+            },
+            "closeable": {
+                "enabled": true,
+                "fetch": "lazy"
+            },
+            "tooltip": {
+                "enabled": true,
+                "fetch": "lazy"
+            },
+            "conditional-fields": {
+                "enabled": true,
+                "fetch": "lazy"
+            }
+        },
         "@symfony/ux-live-component": {
             "live": {
                 "enabled": true,

@@ -1,0 +1,5 @@
+ai:
+    agent:
+        episode:
+            platform: ai.platform.ollama
+            model: '%env(OLLAMA_TEXT_MODEL)%'

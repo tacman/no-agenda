@@ -1,0 +1,8 @@
+survos_state:
+    base_layout: admin/base.html.twig
+    route_prefix: /admin/state
+    workflow_paths:
+        - '%kernel.project_dir%/src/Workflow'
+    queue_driver: doctrine
+    async_transport_dsn: doctrine://default
+    batch_enabled: '%env(bool:EPISODE_AI_BATCH)%'

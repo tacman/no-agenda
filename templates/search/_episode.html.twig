@@ -6,7 +6,7 @@
         <h2><a href="{{ path('podcast_episode', {code: hit.code}) }}">{{ hit.code }}: {{ hit.name }}</a></h2>
         <p><time datetime="{{ hit.publishedAt|date('Y-m-d') }}">{{ hit.publishedAt|date('F j, Y') }}</time> · {{ hit.author }}</p>
         {% if hit.duration %}<p>{{ (hit.duration / 3600)|round(0, 'floor') }}h {{ ((hit.duration % 3600) / 60)|round(0, 'floor') }}m</p>{% endif %}
-        <a href="{{ path('podcast_episode', {code: hit.code}) }}">Listen and view shownotes</a>
+        <a href="{{ path('podcast_episode', {code: hit.code}) }}">Listen and view shownotes</a> · <a href="{{ path('episode_show', {code: hit.code}) }}" data-no-swup>AI analysis</a>
         {% if hit.hasTranscript %} · <a href="{{ path('podcast_episode_transcript', {code: hit.code}) }}">Transcript</a>{% endif %}
     </div>
 </article>

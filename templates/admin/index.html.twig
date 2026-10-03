@@ -1,0 +1,11 @@
+{% extends 'admin/base.html.twig' %}
+{% block page_title %}Episode AI Lab{% endblock %}
+{% block content %}
+<div class="card"><div class="card-body">
+<h2 class="card-title">Explore the archive and its AI workflow</h2>
+<p>Use episode search to open an episode’s AI results. The admin navbar contains the workflow tools.</p>
+<div class="d-flex gap-2">
+<a class="btn btn-primary" href="{{ path('episode_search') }}">Find an episode</a>
+<a class="btn btn-outline-primary" href="{{ path('survos_workflow', {flowCode: 'episode'}) }}">Episode workflow</a>
+</div></div></div>
+{% endblock %}

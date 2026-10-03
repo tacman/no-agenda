@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+
+    {% set page_description = page_description ?? null %}
+
+    <title>{{ page_title ?? 'No Agenda Show' }}</title>
+    {% if page_description %}<meta name="description" content="{{ page_description }}">{% endif %}
+
+    <link rel="icon" href="{{ asset('images/favicon-32.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/app-icon.png') }}">
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+
+    {% block metatags %}
+      <meta property="og:site_name" content="No Agenda Show"/>
+      <meta property="og:type" content="website"/>
+    {% endblock %}
+
+    {% block stylesheets %}
+      <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+
+      <noscript>
+        <style>
+          .js { display: none !important; }
+          .noscript-flex { display: flex !important; }
+          .menu-hidden { max-height: none !important; }
+        </style>
+      </noscript>
+    {% endblock %}
+
+    {% block scripts %}
+      {% block importmap %}{{ importmap('app') }}{% endblock %}
+
+      <script>
+        {% if app.environment == 'dev' %}
+          window.naDebug = true;
+        {% endif %}
+        {% if vapid_key %}
+          window.vapidPublicKey = '{{ vapid_key }}';
+        {% endif %}
+        window.recordingTimes = {{ recording_times|json_encode|raw }};
+      </script>
+
+    {% endblock %}
+  </head>
+  <body>
+    {% block body %}
+      {% include 'navbar.html.twig' %}
+
+      <div id="swup" class="container swup-transition">
+        <main>
+          {% block content '' %}
+        </main>
+        {% block footer '' %}
+      </div>
+
+      {% include 'players.html.twig' %}
+    {% endblock %}
+
+    {% block body_scripts %}
+      {% include 'analytics_script.html.twig' %}
+    {% endblock %}
+  </body>
+</html>

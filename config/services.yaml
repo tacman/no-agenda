@@ -44,3 +44,12 @@ services:
             - setAutomaticPadding: [false] # https://github.com/web-push-libs/web-push-php#payload-length-security-and-performance
 
     Symfony\Bridge\Twig\Extension\AssetExtension: '@twig.extension.assets'
+
+    app.markdown_converter:
+        class: League\CommonMark\CommonMarkConverter
+        arguments:
+            - { html_input: strip, allow_unsafe_links: false }
+
+    twig.markdown.default:
+        class: Twig\Extra\Markdown\LeagueMarkdown
+        arguments: ['@app.markdown_converter']
