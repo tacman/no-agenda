@@ -56,6 +56,7 @@ final class EpisodeAdminController extends AbstractController
             : [];
         $transcripts = [];
         foreach ($analysis['segments'] as $index => $segment) {
+            $analysis['segments'][$index]['word_count'] = preg_match_all('/[\p{L}\p{N}]+(?:[’\'-][\p{L}\p{N}]+)*/u', $segment['text'] ?? '');
             $transcripts[$index] = array_filter($captions, static fn ($caption) => $caption->startTime >= $segment['start'] && $caption->startTime < $segment['end']);
         }
         return $this->render('admin/episode_show.html.twig', [

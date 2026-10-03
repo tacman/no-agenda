@@ -6583,16 +6583,16 @@
         },
         {
             "name": "survos/ai-workflow-bundle",
-            "version": "2.34.1",
+            "version": "2.34.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/survos/ai-workflow-bundle.git",
-                "reference": "8b0a2087bdd486508080ce2e49b51b745e109a0f"
+                "reference": "659c887fa44890da9232777938753660d3d5b301"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/survos/ai-workflow-bundle/zipball/8b0a2087bdd486508080ce2e49b51b745e109a0f",
-                "reference": "8b0a2087bdd486508080ce2e49b51b745e109a0f",
+                "url": "https://api.github.com/repos/survos/ai-workflow-bundle/zipball/659c887fa44890da9232777938753660d3d5b301",
+                "reference": "659c887fa44890da9232777938753660d3d5b301",
                 "shasum": ""
             },
             "require": {
@@ -6648,7 +6648,7 @@
             ],
             "support": {
                 "issues": "https://github.com/survos/ai-workflow-bundle/issues",
-                "source": "https://github.com/survos/ai-workflow-bundle/tree/2.34.1"
+                "source": "https://github.com/survos/ai-workflow-bundle/tree/2.34.31"
             },
             "funding": [
                 {
@@ -6656,7 +6656,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-09-25T10:53:59+00:00"
+            "time": "2026-10-03T10:24:30+00:00"
         },
         {
             "name": "survos/atlas-bundle",

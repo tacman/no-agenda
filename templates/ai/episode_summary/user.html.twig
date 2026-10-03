@@ -3,7 +3,7 @@ Episode: {{ context.episode }} — {{ title }}
 {% if context.chapter|default(null) %}Publisher chapter: {{ context.chapter }}{% endif %}
 {% if context.start|default(null) is not null %}Segment: {{ context.start }}–{{ context.end }} seconds{% endif %}
 {% if context.segmentId|default(null) %}
-Summarize this transcript segment in 100–180 words.
+Summarize this transcript segment in 100–180 words. It appears alongside other segments on the episode page, so begin directly with the substantive topic or argument. Do not repeat the show name, episode title, or introductions such as “In this segment”, “On No Agenda”, or “The hosts discuss”. Attribute disputed claims and opinions where needed without a formulaic opening.
 {% else %}
 These are completed summaries of the entire episode, in chronological order. Write a substantive 180–250-word episode overview covering its main topics and arguments. Do not return just the show name or a title. Fill dense_summary with the complete overview.
 {% endif %}

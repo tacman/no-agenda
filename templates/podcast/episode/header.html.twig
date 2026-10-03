@@ -64,6 +64,10 @@
       <span class="fa-solid fa-file-alt fa-fw" aria-hidden="true"></span>
     </a>
   {% endif %}
+  <a href="{{ path('episode_show', {code: episode.code}) }}" class="link" data-no-swup>
+    <span>Transcript with summaries</span>
+    <span class="fa-solid fa-wand-magic-sparkles fa-fw" aria-hidden="true"></span>
+  </a>
   {% if episode.transcript %}
     <a
       href="{{ path('podcast_episode_transcript', {code: episode.code}) }}"

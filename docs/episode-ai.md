@@ -43,7 +43,7 @@ The review page renders summaries through `markdown_to_html`, with raw HTML and 
 
 ## Local bundle fix
 
-The explicitly requested optional-dependency fix lives in the mono ai-workflow bundle source and is mirrored into this checkout's vendor copy for local verification. Missing agents/platforms are nullable; running an unconfigured task raises a clear exception. OptionalTaskDependencyTest covers this behavior. This fix is not published yet: release it and update the application lockfile before deploying or reinstalling vendor. No other shared bundle changes are retained.
+The explicitly requested optional-dependency fix lives in the mono ai-workflow bundle source and is mirrored into this checkout's vendor copy for local verification. Missing agents/platforms are nullable; running an unconfigured task raises a clear exception. OptionalTaskDependencyTest covers this behavior. The application now locks the published 2.34.31 release containing this fix; deployment no longer depends on a patched vendor copy. No other shared bundle changes are retained.
 
 ## M4 tunnel
 

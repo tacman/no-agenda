@@ -1,27 +1,24 @@
 {% extends 'admin/base.html.twig' %}
 {% block page_title %}{{ episode.code }}: {{ episode.name }}{% endblock %}
 {% block content %}
+{% if episode.denseSummary %}
+<div class="card mb-3"><div class="card-body">
+<p class="text-secondary"><time datetime="{{ episode.publishedAt|date('Y-m-d') }}">{{ episode.publishedAt|date('F j, Y') }}</time> · {{ episode.author }}</p>
+<div>{{ episode.denseSummary|markdown_to_html }}</div><small class="text-secondary">AI-generated from the transcript segment summaries.</small>
+</div></div>
+{% else %}
+<p class="text-secondary">The whole-episode summary has not been generated. <a href="{{ path('podcast_episode_transcript', {code: episode.code}) }}">Read the transcript</a>.</p>
+{% endif %}
 <div class="d-flex flex-wrap gap-2 mb-3">
-<a class="btn btn-outline-primary" href="{{ path('episode_search') }}">Search episodes</a>
 <a class="btn btn-primary" href="{{ path('podcast_episode', {code: episode.code}) }}">Listen</a>
-<a class="btn btn-outline-primary" href="{{ path('survos_workflow', {flowCode: 'episode'}) }}">Workflow</a>
-<a class="btn btn-outline-primary" href="{{ path('survos_workflow', {flowCode: 'episode_segment'}) }}">Segment workflow</a>
 <span class="badge bg-blue-lt align-self-center">{{ episode.marking ?? 'new' }}</span>
 </div>
 {% set segments = analysis.segments|default([]) %}
 {% set completed = segments|filter(segment => segment.summary is not empty) %}
 <div class="alert alert-info">
     <strong>{{ completed|length }} generated summaries ready to review.</strong>
-    {{ pendingTasks }} tasks remain. Pending tasks run through the episode workflow.
+    {{ pendingTasks }} {{ pendingTasks == 1 ? 'task remains' : 'tasks remain' }}.
 </div>
-{% if episode.denseSummary %}
-<div class="card mb-3"><div class="card-body">
-<h2 class="card-title">Whole-episode AI summary</h2>
-<div>{{ episode.denseSummary|markdown_to_html }}</div><small class="text-secondary">AI-generated from the transcript segment summaries.</small>
-</div></div>
-{% else %}
-<p class="text-secondary">The whole-episode summary has not been generated. These samples cover only the time ranges shown.</p>
-{% endif %}
 <section data-controller="summary-panels" aria-label="AI segment summaries">
 <div class="d-flex justify-content-between align-items-center mb-3">
 <h2 class="h3 mb-0">Segment summaries</h2>
@@ -32,13 +29,16 @@
 <details class="card mb-3 p-3" data-summary-panels-target="panel" open>
 <summary class="fw-semibold">{{ segment.start|prettyTimestamp }}–{{ segment.end|prettyTimestamp }} · {{ segment.chapter_title|default('AI summary', true) }}</summary>
 <div class="pt-3">
-<div class="d-flex flex-wrap justify-content-between gap-2 mb-2">
-<h2 class="card-title mb-0">AI summary · {{ segment.start|prettyTimestamp }}–{{ segment.end|prettyTimestamp }}</h2>
-<a href="{{ path('podcast_episode', {code: episode.code, t: segment.start|prettyTimestamp}) }}">Listen to this segment</a>
+<div class="d-flex align-items-start gap-3 mb-2">
+<p class="text-secondary small mb-0">{{ (segment.end - segment.start)|prettyTimestamp }} duration · {{ segment.word_count|number_format }} source words</p>
+{% set aiDetails %}{% if run %}{{ run.model }} · {% if run.durationMs is not null %}{{ (run.durationMs / 1000)|number_format(2) }} seconds{% else %}provider batch{% endif %} · {{ run.inputTokens|number_format }} input / {{ run.outputTokens|number_format }} output tokens{% else %}AI-generated{% endif %}{% endset %}
+<details class="ms-auto text-secondary small">
+<summary title="{{ aiDetails|trim }}" aria-label="AI details" class="text-nowrap"><span aria-hidden="true">✦</span> AI</summary>
+<div class="pt-2">{{ aiDetails }}<br><a href="{{ path('podcast_episode', {code: episode.code, t: segment.start|prettyTimestamp}) }}">Listen to this segment</a></div>
+</details>
 </div>
-{% if run %}<div class="text-secondary small mb-3">{{ run.model }} · {% if run.durationMs is not null %}{{ (run.durationMs / 1000)|number_format(2) }} seconds{% else %}provider batch{% endif %} · {{ run.inputTokens|number_format }} input / {{ run.outputTokens|number_format }} output tokens</div>{% endif %}
 <div class="ai-summary">{{ segment.summary|markdown_to_html }}</div>
-<details class="mt-3" data-transcript-panel><summary>Show source transcript</summary>
+<details class="mt-3" data-transcript-panel><summary>Show transcript</summary>
 <ol class="list-unstyled mt-3 mb-0">
 {% for line in transcripts[index]|default([]) %}
 <li class="d-flex gap-3 py-2 border-bottom"><a class="text-nowrap font-monospace" href="{{ path('podcast_episode', {code: episode.code, t: line.startTime|prettyTimestamp}) }}">{{ line.startTime|prettyTimestamp }}</a><span>{{ line.text }}</span></li>
