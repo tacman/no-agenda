@@ -2,7 +2,7 @@
 
 The public site retains its original stylesheet and `app` importmap entry. The AI Lab uses Tabler and an independent `admin` entry. The gear-adjacent admin icon opens `/admin/episodes`; search cards link directly to `/admin/episodes/{code}` (`episode_show`). There is no duplicate episode list.
 
-The lab and read-only workflow views are public for this pilot. Existing mutation routes remain behind the admin access rule. Production has not been updated with this work.
+The lab and read-only workflow views are public for this pilot. Existing mutation routes remain behind the admin access rule. Published on 2026-10-03 at https://no-agenda.survos.com/admin/episodes/1907 (application release e7253e1). Episode 1907 has its existing episode summary and 29 segment summaries; 28 are from Mistral and one retains its prior Ollama result with a pending retry. No new AI jobs were run for publication. Summary/segment and claim provenance rows were transferred transactionally, resolving the episode by code and remapping local ID 243 to production ID 241. Production batch job IDs were left unset because provider job records were not imported. RAG, diarization, and an embedded admin audio player remain deferred.
 
 ## Workflow
 
