@@ -130,3 +130,32 @@ previous local summary and pending task for explicit retry. No automatic retry
 was submitted. Archived usage totals: 40,193 input / 5,407 output tokens,
 including the incomplete response. Provider completion counts alone are not
 sufficient to declare every application result valid.
+
+### Production batch pilot (2026-10-03)
+
+Episodes 1906 (34 segments) and 1905 (42 segments) were submitted directly from
+production with the revised prompts. Mistral Small 4 handles segment summaries;
+Ollama through the protected M4 tunnel handles episode synthesis. Credentials
+were configured privately in Dokku. Raw provider results persist under the
+`/app/var/ai-batch` mount backed by the app's existing storage directory.
+
+Operational finding: using `state:iterate Episode ... --sync --cascade=none`
+for preparation also makes the segment post-flush kickoff synchronous. With
+batching enabled this submitted 76 one-request provider batches, rather than
+collecting groups of 29. Do not repeat synchronous preparation for an async
+batch run. No duplicate initial requests were submitted. One incomplete Mistral
+response was explicitly retried as batch 77 through the async segment queue.
+
+A single temporary production worker consumes `scheduler_default`,
+`episode.ai.task`, and `episode.ai.done` for up to 24 hours, stopping on failure.
+Its operational log is `/tmp/no-agenda-ai-pilot.log` on fsn1. At this checkpoint,
+1906 is complete and 1905 has 41/42 segment summaries; batch 77 is processing.
+The worker will synthesize 1905 after the final successful result. It does not
+consume episode preparation or submit further segment jobs.
+
+AI batch, claim, and claim-run Elasticsearch indexes were initialized. The
+242-episode index was rebuilt with the current mapping, retaining its previous
+generation; failed index updates were replayed successfully. Dokku one-off
+containers do not inherit the app's post-deploy ES network attachment: index
+maintenance was run inside the connected web container, and the temporary
+pilot worker was attached to that same private network.
